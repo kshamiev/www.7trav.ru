@@ -1,0 +1,117 @@
+<h1>{$Razdel->Name}</h1>
+<h2>Резлуьтаты поиска "{$Client->Search}"</h2>
+{if ( count($page_list['list']) > 1 )}
+<table height="20px" cellspacing="0" cellpadding="0" border="0">
+<tr>
+	<td>
+	<a href="{URL}page{$page_list['beg']}.htm"><img src="/img/arrow-nazad.gif" border="0"></a>&nbsp;
+	<a href="{URL}page{$page_list['left']}.htm"><img src="/img/arrow-nazad.gif" border="0"></a>
+	</td>
+	<td align="center">&nbsp;
+  {foreach ($page_list['list'] as $val)}
+  {if ( $val == $Filter->Page )}
+  <b>{$val}</b>&nbsp;
+  {else}
+  <a href="{URL}page{$val}.htm">{$val}</a>&nbsp;
+  {/if}
+  {/foreach}
+  </td>
+	<td>
+	<a href="{URL}page{$page_list['right']}.htm"><img src="/img/arrow-vpered.gif" border="0"></a>&nbsp;
+	<a href="{URL}page{$page_list['end']}.htm"><img src="/img/arrow-vpered.gif" border="0"></a>
+	</td>
+</tr>
+</table>
+{/if}
+
+{if ( count($goods_list) > 0 )}
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tr>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+	<td height="1px" background="/img/border_content_g.gif"></td>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+</tr>
+{foreach ($goods_list as $goods)}
+<tr>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+	<td>
+	<div class="iten-list">
+  <div style="width: 100%">
+
+  <table width="100%" cellspacing="0" cellpadding="0" border="0">
+  <tr>
+    <td width="95px">
+    {if ( $goods['Url'] )}
+    <a href="/{$goods['Url']}/" title="{$goods['Name']}" target="_blank">
+    {else}
+    <a href="/production/{$goods['ID']}.htm" title="{$goods['Name']}" target="_blank">
+    {/if}
+    {if ( $goods['Imgs'] )}
+    <img alt="{htmlspecialchars($goods['Name'])}" src="/img/{$goods['Imgs']}" border="0">
+    {else}
+    <img src="/img/not-goods-image.gif" border="0">
+    {/if}
+    </a>
+    </td>
+    <td valign="top">
+    <h3>{$goods['Name']}</h3>
+    {nl2br($goods['Description'])}<br>
+    {if ( $goods['Url'] )}
+    <a href="/{$goods['Url']}/" title="{$goods['Name']}" target="_blank">Подробнее...</a>
+    {else}
+    <a href="/production/{$goods['ID']}.htm" title="{$goods['Name']}" target="_blank">Подробнее...</a>
+    {/if}
+    </td>
+    <td width="85px" align="center">
+    <a href="#" onclick="return basket_add({$goods['ID']});">
+    {if ( isset($Basket->Basket[$goods['ID']]) )}
+    <img id="basket_img_{$goods['ID']}" src="/img/ico-basket-full-add.jpg" border="0" alt="купить">
+    {else if ( 0 < $goods['Price'] )}
+    <img id="basket_img_{$goods['ID']}" src="/img/ico-basket-add.jpg" border="0" alt="купить" onclick="this.src='/img/ico-basket-full-add.jpg';">
+    {else}
+    <img id="basket_img_{$goods['ID']}" src="/img/ico-basket-not.jpg" border="0" alt="купить" onclick="this.src='/img/ico-basket-full-add.jpg';">
+    {/if}
+    </a>
+    <br><br>
+    <span class="price">{$goods['Price']}<br>руб.</span>
+    </td>
+  </tr>
+  </table>
+
+  </div>
+	</div>
+	</td>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+</tr>
+<tr>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+	<td height="1px" background="/img/border_content_g.gif"></td>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+</tr>
+{/foreach}
+</table>
+{/if}
+
+{if ( count($page_list['list']) > 1 )}
+<table height="20px" cellspacing="0" cellpadding="0" border="0">
+<tr>
+	<td>
+	<a href="{URL}page{$page_list['beg']}.htm"><img src="/img/arrow-nazad.gif" border="0"></a>&nbsp;
+	<a href="{URL}page{$page_list['left']}.htm"><img src="/img/arrow-nazad.gif" border="0"></a>
+	</td>
+	<td align="center">&nbsp;
+  {foreach ($page_list['list'] as $val)}
+  {if ( $val == $Filter->Page )}
+  <b>{$val}</b>&nbsp;
+  {else}
+  <a href="{URL}page{$val}.htm">{$val}</a>&nbsp;
+  {/if}
+  {/foreach}
+  </td>
+	<td>
+	<a href="{URL}page{$page_list['right']}.htm"><img src="/img/arrow-vpered.gif" border="0"></a>&nbsp;
+	<a href="{URL}page{$page_list['end']}.htm"><img src="/img/arrow-vpered.gif" border="0"></a>
+	</td>
+</tr>
+</table>
+{/if}

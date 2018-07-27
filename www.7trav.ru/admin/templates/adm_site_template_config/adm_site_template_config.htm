@@ -1,0 +1,34 @@
+<script language="JavaScript" type="text/javascript">
+function button_form(f,v)
+	{
+	if ( v==1 ) { f.action='{$mod_link}'; f.op.value = 'save'; f.submit(); }
+	}
+</script>
+<table cellspacing="1" cellpadding="0" border="0" align="center">
+<tr>
+	<td width="651" class="tdb" colspan="2">КОНФИГУРАЦИЯ ШАБЛОНА - {$ModSystem->Parent['Obj_Name']}</td>
+</tr>
+<form method="post"><input type="hidden" name="op">
+{foreach ($zone_list as $zone)}
+<tr>
+	<td width="250px" class="tdtxt">{$zone['Name']}</td>
+	<td width="400px">&nbsp;<select name="Templates[{$zone['ID']}]" style="width: 395px;">
+	<option value="">не выбрано</option>
+  {if ( isset($modsystem_list[$zone['Zone_Type_ID']]) )}
+  {foreach ($modsystem_list[$zone['Zone_Type_ID']] as $mod_id=>$mod_name)}
+	<option value="{$mod_id}"{if ( isset($template_list[$zone['ID']]) && $mod_id == $template_list[$zone['ID']] )} selected{/if}>{$mod_name}</option>
+	{/foreach}
+  {/if}
+	</select>
+	</td>
+</tr>
+{/foreach}
+{if ( $Access['E'] )}
+<tr>
+	<td class="txtc" colspan="2">
+  <input type="button" value="сохранить конфигурацию" onclick="button_form(this.form,1);">
+  </td>
+</tr>
+{/if}
+</form>
+</table>

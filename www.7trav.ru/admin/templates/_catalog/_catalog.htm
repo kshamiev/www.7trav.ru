@@ -1,0 +1,142 @@
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tr valign="top">
+<td>
+
+<script language="JavaScript" type="text/javascript">
+function button_form(f,v)
+	{
+  //  сортировка вверх
+ 	if ( 1 == v ) { f.action='{$mod_link}'; f.op.value = 'sort_up'; }
+  //  сортировка вниз
+ 	if ( 2 == v ) { f.action='{$mod_link}'; f.op.value = 'sort_down'; }
+  //  изменение
+  if ( 5 == v ) { f.action='{$mod_link}&block=_edit'; }
+  //  удаление
+	if ( 6 == v )
+		{
+		if ( true == confirm('вы действительно хотите удалить!') )
+			{ f.action='{$mod_link}'; f.op.value = 'obj_remove'; }
+		else return false;
+		}
+  //  создать связь
+  if ( 7 == v )
+    {
+    if ( f.obj_id.value ) { f.action='{$mod_link}'; f.op.value = 'link_add'; f.submit(); }
+    else { alert('нечего свзывать'); }
+    }
+  //  добавление
+  if ( 8 == v ) { f.action='{$mod_link}&block=_edit'; f.op.value = 'obj_new'; f.submit(); }
+  //  подкаталоги
+  if ( 9 == v ) { f.action='{$mod_link}'; f.op.value = 'folder_down'; }
+	}
+</script>
+<!-- Шапка -->
+<table width="100%" cellspacing="1" cellpadding="0" border="0" align="center">
+<tr>
+	<td>
+	<table width="100%" cellspacing="0" cellpadding="0" border="1">
+	<tr>
+    <td class="tdb">
+    СПИСОК&nbsp;&nbsp;-&nbsp;
+    <span class="hd">{$ModSystem->Name}</span>
+    </td>
+    <td width="70px" class="tdbc">{$Filter->Count}</td>
+    <td width="25px" class="tdbc"><a href="#" onclick="system_window2('{$mod_link_blank}&block=_help_mod',800,650,0,0);"><img src="http://{HOST}/img/!admin/button_help2.gif" alt="справка" border="0"></a></td>
+	</tr>
+	</table>
+	</td>
+</tr>
+{if ( 0 < count($Path) )}
+<tr>
+	<td class="tdtxt">{$row=array_shift($Path)}
+  &nbsp;/&nbsp;<a href="{$mod_link}&mod_parent_id={$row['ID']}&obj_id={$row['Obj_ID']}&block=_edit">Главная(ый)</a>
+  &nbsp;/&nbsp;<a href="{$mod_link}&mod_parent_id={$row['ID']}&obj_id={$row['Obj_ID']}">корень</a>
+	{foreach ($Path as $row)}
+	&nbsp;/&nbsp;<a href="{$mod_link}&mod_parent_id={$row['ID']}&obj_id={$row['Obj_ID']}">{$row['Obj_Name']}</a>
+	{/foreach}
+	</td>
+</tr>
+{/if}
+</table>
+<!-- Основное представление объектов -->
+<table width="100%" cellspacing="1" cellpadding="0" border="0" align="center">
+<tr>
+  <td width="150" class="hd1c" colspan="6">-</td>
+	{foreach ($Filter->Sort_Prop as $name)}
+	<td class="tdhd1" nowrap>{$name}&nbsp;&nbsp;</td>
+  {/foreach}
+</tr>
+{foreach ($Obj_List as $id => $row)}
+<form method="post"><input type="hidden" name="op">
+<input type="hidden" name="obj_id" value="{$id}">
+<tr onmousemove="line_move(this);" onmouseout="line_out(this);" onclick="line_clik(this);">
+	<td width="24px" align="center"><input type="image" src="http://{HOST}/img/!admin/button_folder_open.gif" alt="подкаталоги" onclick="button_form(this.form, 9);"></td>
+	<td width="24px" align="center">{if ( $Access['E'] )}<input type="image" src="http://{HOST}/img/!admin/button_up.gif" alt="сортировать в начало" onclick="button_form(this.form, 1);">{else}-{/if}</td>
+	<td width="24px" align="center">{if ( $Access['E'] )}<input type="image" src="http://{HOST}/img/!admin/button_down.gif" alt="сортировать в конец" onclick="button_form(this.form, 2);">{else}-{/if}</td>
+	<td width="24px" align="center"><a href="#" onclick="system_window2('{$mod_link_blank}&obj_id={$id}&block=_view', 850, 650, 0, 0);"><img src="http://{HOST}/img/!admin/button_view.gif" alt="просмотр" border="0"></a></td>
+  <td width="24px" align="center">{if ( $Access['E'] )}<input type="image" src="http://{HOST}/img/!admin/button_edit.gif" alt="изменить" onclick="button_form(this.form, 5);">{else}-{/if}</td>
+  <td width="24px" align="center">{if ( $Access['R'] )}<input type="image" src="http://{HOST}/img/!admin/button_trash.gif" alt="удалить" onclick="return button_form(this.form, 6);">{/if}</td>
+  {foreach ($row as $prop=>$value)}
+  <td id="{$prop}_{$id}" class="stdtxt">&nbsp;{if ( '_ID' == substr($prop, -3) )} {$Filter->Filter_Prop[$prop][$value]} {else} {$value} {/if}</td>
+  {/foreach}
+</tr>
+</form>
+{/foreach}
+</table>
+<!-- Нижняя панел - добавление, связывание ( может отсутсвовать частично или полностью в зависимости от прав ) -->
+<table width="100%" cellspacing="1" cellpadding="0" border="0" align="center">
+<!-- Постраничность -->
+{if ( $page_list )}
+<tr>
+	<td class="txt" colspan="2">
+	<table width="100%" height="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td width="25" align="center">
+		<a href="{$mod_link}&page={$page_list['beg']}"><img src="http://{HOST}/img/!admin/button_first.gif" alt="в начало" border="0"></a>
+		</td>
+		<td width="25" align="center">
+		<a href="{$mod_link}&page={$page_list['left']}"><img src="http://{HOST}/img/!admin/button_previous.gif" alt="на диапазон в начало" border="0"></a>
+		</td>
+		<td align="center">
+		<b>
+		&nbsp;
+		{foreach ($page_list['list'] as $val)}
+		{if ( $val == $Filter->Page )}
+		{$val}&nbsp;
+		{else}
+		<a href="{$mod_link}&page={$val}">{$val}</a>&nbsp;
+		{/if}
+		{/foreach}
+		</b>
+		</td>
+		<td width="25" align="center">
+		<a href="{$mod_link}&page={$page_list['right']}"><img src="http://{HOST}/img/!admin/button_next.gif" alt="на диапазон в конец" border="0"></a>
+		</td>
+		<td width="25" align="center">
+		<a href="{$mod_link}&page={$page_list['end']}"><img src="http://{HOST}/img/!admin/button_last.gif" alt="в конец" border="0"></a>
+		</td>
+	</tr>
+	</table>
+	</td>
+</tr>
+{/if}
+{if ( $Access['L'] )}
+<form method="post"><input type="hidden" name="op">
+<tr>
+	<td width="90%">&nbsp;<select name="obj_id" style="width: 99%"><option value="0">не выбрано</option>{foreach ($Obj_List_Link as $id => $name)}<option value="{$id}">{$name}</option>{/foreach}</select></td>
+  <td width="10%" class="txtc"><input type="button" value="связать" onclick="button_form(this.form, 7);"></td>
+</tr>
+</form>
+{/if}
+{if ( $Access['A'] )}
+<form method="post"><input type="hidden" name="op">
+<tr>
+	<td class="txtc" colspan="2"><input type="button" value="добавить" onclick="button_form(this.form, 8);"></td>
+</tr>
+</form>
+{/if}
+</table>
+
+</td>
+</tr>
+</table>

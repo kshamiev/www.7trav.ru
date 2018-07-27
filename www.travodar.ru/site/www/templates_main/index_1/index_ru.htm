@@ -1,0 +1,188 @@
+<html>
+<head>
+{$Razdel->Seo}
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/templates_main/index_{$Razdel->Site_Template_ID}/index.css" type="text/css">
+<script type="text/javascript" language="JavaScript" src="/templates_main/index_{$Razdel->Site_Template_ID}/index.js">
+</script>
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"> 
+{if ( $robots )}<meta name="robots" content="{$robots}">{/if}
+</head>
+{$zone_initialization}
+<body>
+<NOINDEX>
+<div style="position: absolute; top: 0; left: 0;">
+<script language="Javascript">
+<!--
+<!--SystemCounter-->
+x_scale=screen.width; y_scale=screen.height;
+referrer_page=escape(window.top.document.referrer);
+zapros_page=escape(window.self.location.href);
+if (navigator.appName.substring(0,2)=="Mi")
+	color=screen.colorDepth;
+else
+	color=screen.pixelDepth;
+//
+aa ="<img width='1' height='1' border=0 src='/statistic.php";
+aa+="?referrer_page="+referrer_page+"&zapros_page="+zapros_page;
+aa+="&x_scale="+x_scale+"&y_scale="+y_scale+"&color="+color+"'>";
+window.self.document.write(aa);
+<!--/SystemCounter-->
+function goods_search(f)
+	{
+  if ( !f.search.value ) { alert('а что ищем?'); return false; }
+  return true;
+	}
+function basket_add(goods_id)
+	{
+  document.getElementById('basket_summa_top').innerHTML = '<font color="#FF0000">' + document.getElementById('basket_summa_top').innerHTML + '</font>';
+	var url = '/ajax_action_htm.php';
+	url+= '?op=Basket-Goods_Add-0-' + goods_id;
+	ajax_htm(url, basket_action, '');
+	return false;
+	}
+function basket_action(htm)
+  {
+  if ( '' == htm )
+    {
+    alert('Ошибка добавления товара в корзину');
+    }
+  else
+    {
+    document.getElementById('basket_img').src = '/img/ico-basket-full.jpg';
+    document.getElementById('basket_summa_top').innerHTML = htm + ' руб.';
+    alert('Товар добавлен в корзину');
+    }
+  }
+//-->
+</script>
+</div>
+</NOINDEX>
+<table width="998" height="100%" cellspacing="0" cellpadding="0" border="0" align="center">
+<!-- BEG Шапка -->
+<tr>
+	<td height="100px" background="/img/head.jpg" valign="top">
+	<div class="brend_text">
+	8 (495) 509-34-87, 8 (916) 233-20-22<br>
+	Время работы: с 10:00 до 20:00 без выходных
+	</div>
+	<div class="hot_link">
+	<a href="/" title="На главную страницу"><img src="/img/ico-home.gif" border="0" alt=""></a>&nbsp;&nbsp;
+	<a href="/map/" title="Карта сайта"><img src="/img/ico-map.gif" border="0" alt=""></a>&nbsp;&nbsp;
+	<a href="/feedback/" title="Обратная связь"><img src="/img/ico-mail.gif" border="0" alt=""></a>
+	</div>
+	<div class="form_search">
+	<form action="/search/" method="post" onsubmit="return goods_search(this);">
+	<input type="text" name="search"><br><input type="submit" value="найти" class="btn">
+	</form>
+	</div>
+	</td>
+</tr>
+<!-- END Шапка -->
+<!-- BEG Верхняя навигация -->
+<NOINDEX>
+<tr>
+	<td height="31px">
+	<table width="100%" height="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td width="90px"><img src="/img/left1.jpg" width="90px" height="31px" alt=""></td>
+		<td width="32px" background="/img/bg_top_menu.gif"><a href="/basket/" title="Ваша корзина">{if ( 0 < $Basket->Summa )}<img id="basket_img" src="/img/ico-basket-full.jpg" border="0" alt="">{else}<img id="basket_img" src="/img/ico-basket.jpg" border="0" alt="">{/if}</a></td>
+		<td background="/img/bg_top_menu.gif" align="center">
+    {$zone_navigation_root}
+		</td>
+		<td width="93px"><img src="/img/right1.jpg" width="93px" height="31px" alt=""></td>
+	</tr>
+	</table>
+	</td>
+</tr>
+</NOINDEX>
+<!-- END Верхняя навигация -->
+<!-- BEG Мертвая зона и навигационная строка -->
+<tr>
+	<td height="27px">
+	<table width="100%" height="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td width="213px" background="/img/left2.jpg"><span id="basket_summa_top" class="basket_summa_top">{$Basket->Summa} руб.</span></td>
+		<td>&nbsp;
+    {$zone_navigation_line}
+		</td>
+		<td width="204px"><img src="/img/right2.jpg" width="204px" height="27px" alt=""></td>
+	</tr>
+	</table>
+	</td>
+</tr>
+<!-- END Мертвая зона и навигационная строка -->
+<!-- BEG Тело -->
+<tr>
+	<td>
+	<table width="100%" height="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr valign="top" align="center">
+		<td width="20px" background="/img/background_body.gif"></td>
+		<td width="190px" align="center">
+		
+		<!-- BEG Левая колонка -->
+		{$zone_navigation_left1}
+    {$zone_navigation_left2}
+    {$zone_navigation_left3}
+    {$zone_navigation_left4}
+    {$zone_promotion_left5}
+		<!-- END Левая колонка -->
+		
+		</td>
+		<td width="3px" background="/img/bg_border_vert.gif"></td>
+		<td><!-- 583 -->
+    
+    <div style="padding: 6px">
+    <div style="width: 100%">
+
+		<!-- BEG Центр -->
+		{$zone_content}
+		<!-- END Центр -->
+    
+    </div>
+    </div>
+
+		</td>
+		<td width="31px" background="/img/background_body.gif"></td>
+	</tr>
+	</table>
+	</td>
+</tr>
+<!-- END Тело -->
+
+<!-- BEG Подвал -->
+<tr>
+	<td height="40px">
+	<table width="100%" height="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr align="center">
+		<td width="20px" background="/img/background_body.gif"><img src="/img/1x1.gif" width="20px" height="1px" border="0"></td>
+		<td width="190px" align="center">
+		
+		<!-- BEG Левая колонка -->
+    <NOINDEX>
+    <!-- Yandex.Metrika counter -->
+    <!-- /Yandex.Metrika counter -->
+    </NOINDEX>
+		<!-- END Левая колонка -->
+		
+		</td>
+		<td width="3px" background="/img/bg_border_vert.gif"><img src="/img/1x1.gif" width="3px" height="1px" border="0"></td>
+		<td>
+    <h3>Спонсорский блок:</h3>
+		{$sape_link1}<br><br>
+		<!-- BEG Центр -->
+		<span class="marker">Copyright 2011 </span><a href="javascript:mailme('info',0,'');"><script type="text/javascript">write_email('info',0);</script></a>
+		<!-- END Центр -->
+		
+		</td>
+		<td width="31px" background="/img/background_body.gif">&nbsp;</td>
+	</tr>
+	</table>
+	</td>
+</tr>
+<!-- END Подвал -->
+
+</table>
+</body>
+</html>
+</html>

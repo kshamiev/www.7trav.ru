@@ -1,0 +1,99 @@
+<script language="JavaScript" type="text/javascript">
+function button_form(f,v)
+	{
+	if ( v==1 ) { f.action='{$mod_link}&block=_file_edit'; }
+	if ( v==8 ) { f.action='{$mod_link}'; f.op.value = 'folder_add'; f.submit(); }
+	if ( v==9 ) { f.action='{$mod_link}'; f.op.value = 'file_add'; f.submit(); }
+  //  удаление
+	if ( 4 == v )
+		{
+		if ( true == confirm('вы действительно хотите удалить!') )
+			{ f.action='{$mod_link}'; f.op.value = 'folder_rem'; }
+		else return false;
+		}
+	if ( 5 == v )
+		{
+		if ( true == confirm('вы действительно хотите удалить!') )
+			{ f.action='{$mod_link}'; f.op.value = 'file_rem'; }
+		else return false;
+		}
+	}
+</script>
+<table cellspacing="1" cellpadding="0" border="0" align="center">
+<tr>
+	<td class="tdb" colspan="4">ФАЙЛОВЫЙ МЕНЕДЖЕР</td>
+	<td class="tdbr" colspan="2">&sum;&nbsp;=&nbsp;{$count_item}&nbsp;&nbsp;</td>
+</tr>
+<tr>
+	<td class="tdtxtb" colspan="6">{$ModSystem->Path[0]}</td>
+</tr>
+{if ( $Access['A'] )}
+<form method="post"><input type="hidden" name="op">
+<tr>
+	<td class="txt" colspan="6">&nbsp;<input type="text" name="folder_name" style="width: 330px;" maxlength="20"><input type="button" value="создать / добавить каталог" alt="создать / добавить каталог" onclick="button_form(this.form,8);"></td>
+</tr>
+</form>
+<form method="post" enctype="multipart/form-data"><input type="hidden" name="op">
+<tr>
+	<td class="txt" colspan="6">&nbsp;<input type="file" name="file_name" size="49"><input type="button" value="переписать / добавить файл" alt="переписать / добавить файл" onclick="button_form(this.form,9);"></td>
+</tr>
+</form>
+{/if}
+<tr>
+	<td width="250px" class="tdhd1">Название</td>
+	<td width="50px" class="tdhd1">Тип</td>
+	<td width="100px" class="tdhd1">Размер</td>
+	<td width="120px" class="tdhd1">Изменение</td>
+	<td width="55px" class="hd1c" colspan="2">Сервис</td>
+</tr>
+{if ( $ModSystem->Path[0] != PATH_ROOT )}
+<form method="post"><input type="hidden" name="op">
+<tr>
+	<td class="stdtxtb">..</td>
+	<td class="stxtc"><a href="{$mod_link}&path_new=.."><img src="http://{HOST}/img/!admin/button_folder_up.gif" border="0"></a></td>
+	<td class="stdtxt">-</td>
+	<td class="stdtxt" align="center">-</td>
+	<td width="55px" align="center" colspan="2">-</td>
+</tr>
+</form>
+{/if}
+{foreach ($folder_mas as $name=>$data)}
+<form method="post"><input type="hidden" name="op">
+<input type="hidden" name="folder_name" value="{$name}">
+<tr>
+	<td class="stdtxtb">{$name}</td>
+	<td class="stxtc"><a href="{$mod_link}&path_new={$name}"><img src="http://{HOST}/img/!admin/button_folder.gif" border="0"></a></td>
+	<td class="stdtxt">-</td>
+	<td class="stdtxt">{$data['edit']}</td>
+	<td width="55px" align="center" colspan="2">
+	&nbsp;{if ( $Access['R'] )}<input type="image" src="http://{HOST}/img/!admin/button_trash.gif" alt="удалить" onclick="return button_form(this.form,4);">{/if}&nbsp;
+	</td>
+</tr>
+</form>
+{/foreach}
+{foreach ($files_mas as $name=>$data)}
+<form method="post"><input type="hidden" name="op">
+<input type="hidden" name="file_name" value="{$name}">
+<tr>
+	<td class="stdtxtb">
+	<a target="_blank" href="modules/_file_manager/_file_manager_file_out.php?file_path={$ModSystem->Path[0]}/{$name}">{$name}</a>
+	</td>
+	<td class="stxtc">-</td>
+	<td class="stdtxt">{$data['size']}</td>
+	<td class="stdtxt">{$data['edit']}</td>
+	{if ( in_array($data['ext'], $file_edit_flag) )}
+  <td width="27px" align="center">
+	&nbsp;{if ( $Access['E'] )}<input type="image" src="http://{HOST}/img/!admin/button_edit.gif" alt="редактировать" onclick="button_form(this.form,1);">{/if}&nbsp;
+	</td>
+	<td width="27px" align="center">
+	&nbsp;{if ( $Access['R'] )}<input type="image" src="http://{HOST}/img/!admin/button_trash.gif" alt="удалить" onclick="return button_form(this.form,5);">{/if}&nbsp;
+	</td>
+  {else}
+	<td width="55px" align="center" colspan="2">
+	&nbsp;{if ( $Access['R'] )}<input type="image" src="http://{HOST}/img/!admin/button_trash.gif" alt="удалить" onclick="return button_form(this.form,5);">{/if}&nbsp;
+	</td>
+  {/if}
+</tr>
+</form>
+{/foreach}
+</table>

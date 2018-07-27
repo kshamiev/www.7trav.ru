@@ -1,0 +1,237 @@
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tr valign="top">
+
+{if ( 1 == $Filter->IsVisible )}
+<td width="200px">
+
+<table cellspacing="1" cellpadding="0" border="0">
+<form name="filter" action="{$mod_link}" method="post">
+<input type="hidden" name="op" value="filter">
+<input type="hidden" name="page" value="1">
+{if ( $Access['S'] )}
+<tr>
+	<td width="195px">
+	<table width="100%" cellspacing="0" cellpadding="0" border="1">
+	<tr>
+    <td class="tdb">ОПЦИИ</td>
+	</tr>
+	</table>
+	</td>
+</tr>
+<tr>
+  <td class="tdtxt">
+  <!--<a href="#" onclick="system_window('{$mod_link}&mod_child_id=21', 'mod_21', 850, 650, 1, 0);">Права на свойства</a>&nbsp;-->
+  </td>
+</tr>
+{/if}
+<tr>
+	<td width="195px">
+	<table width="100%" cellspacing="0" cellpadding="0" border="1">
+	<tr>
+    <td class="tdb">ФИЛЬТРЫ</td>
+	</tr>
+	</table>
+	</td>
+</tr>
+{foreach ($Filter->Filter as $prop=>$row)}
+{if ( 'checkbox' != $row['Form'] )}
+<tr>
+  <td class="tdtxtb">{$row['Comment']}</td>
+</tr>
+<tr>
+  <td class="txt">
+  {if ( 'enum' == $row['Type'] && true == $row['IsFilter'] )}
+
+  {if ( $row['IsNull'] )}
+  &nbsp;<select name="filter[{$prop}]" style="width: 190px;">
+  <option value="">все</option>
+  <option value="NULL"{if ( 'NULL' == $row['Value'] )} selected{/if}>не определенные</option>
+  <option value="NOTNULL"{if ( 'NOTNULL' == $row['Value'] )} selected{/if}>установленные</option>
+  {foreach ($Filter->Filter_Prop[$prop] as $name)}<option value="{$name}"{if ( $name == $row['Value'] )} selected{/if}>{$name}</option>{/foreach}
+  </select>
+  {else}
+  {if ( 2 < count($Filter->Filter_Prop[$prop]) )}
+  {foreach ($Filter->Filter_Prop[$prop] as $name)}&nbsp;<input type="radio" name="filter[{$prop}]" value="{$name}"{if ( $name == $row['Value'] )} checked{/if}>&nbsp;{$name}<br>{/foreach}
+  {else}
+  {foreach ($Filter->Filter_Prop[$prop] as $name)}&nbsp;<input type="radio" name="filter[{$prop}]" value="{$name}"{if ( $name == $row['Value'] )} checked{/if}>&nbsp;{$name}{/foreach}
+  {/if}
+  {/if}
+
+  {else if ( '_ID' == substr($prop, -3) && true == $row['IsFilter'] )}
+
+  &nbsp;<select name="filter[{$prop}]" style="width: 190px;">
+  <option value="">все</option>
+  <option value="NULL"{if ( 'NULL' == $row['Value'] )} selected{/if}>не определенные</option>
+  <option value="NOTNULL"{if ( 'NOTNULL' == $row['Value'] )} selected{/if}>установленные</option>
+  {if ( 'Razdel_ID' == $prop || 'Catalog_ID' == $prop )}
+  {foreach ($Filter->Filter_Prop[$prop] as $row)}<option value="{$row['ID']}"{if ( $row['ID'] == $row['Value'] )} selected{/if}>{$otstup[$row['Level']]}{$row['Name']}</option>{/foreach}
+  {else}
+  {foreach ($Filter->Filter_Prop[$prop] as $id => $name)}<option value="{$id}"{if ( $id == $row['Value'] )} selected{/if}>{$name}</option>{/foreach}
+  {/if}
+  </select>
+
+  {else if ( 'datetime' == $row['Form'] && true == $row['IsFilter'] )}
+
+  <table width="100%" height="100%" cellspacing="0" cellpadding="0" border="0">
+  <tr>
+    <td>&nbsp;<input type="text" id="{$prop}_beg" name="filter[{$prop}][ValueBeg]" value="{$row['ValueBeg']}" maxlength="150" style="width: 70px;" onclick="this.value='';"></td>
+    <td width="20px" align="center"><img src="http://{HOST}/img/!admin/button_calendar.gif" onclick="calendar('{$prop}_beg');" style="cursor: pointer;"></td>
+    <td>&nbsp;<input type="text" id="{$prop}_end" name="filter[{$prop}][ValueEnd]" value="{$row['ValueEnd']}" maxlength="150" style="width: 70px;" onclick="this.value='';"></td>
+    <td width="20px" align="center"><img src="http://{HOST}/img/!admin/button_calendar.gif" onclick="calendar('{$prop}_end');" style="cursor: pointer;"></td>
+  </tr>
+  </table>
+
+  {/if}
+  </td>
+</tr>
+{/if}
+{/foreach}
+<tr>
+  <td class="tdtxtb">Поиск</td>
+</tr>
+<tr>
+	<td class="txtc"><input type="text" name="search[Value]" value="{$Filter->Search['Value']}" maxlength="150" style="width: 190px;"></td>
+</tr>
+<tr>
+  <td class="tdtxtb">По полю</td>
+</tr>  
+<tr>
+  <td class="txtc"><select name="search[Prop]" style="width: 190px;"><option value="ID">Идентификатор</option>
+	{foreach ($Filter->Search_Prop as $prop => $name)}<option value="{$prop}"{if ( $prop == $Filter->Search['Prop'] )} selected{/if}>{$name}</option>{/foreach}
+	</select>
+  </td>
+</tr>
+<tr>
+  <td width="195px" class="txtc"><input type="image" src="http://{HOST}/img/!admin/button_filter1.gif" alt="фильтр установить">&nbsp;&nbsp;<input type="image" src="http://{HOST}/img/!admin/button_filter2.gif" alt="фильтр сбросить" onclick="button_form(this.form, 9);"></td>
+</tr>
+</form>
+</table>
+
+</td>
+{/if}
+<td>
+
+<script language="JavaScript" type="text/javascript">
+function button_form(f,v)
+	{
+  //  удалить связь
+  if ( 2 == v ) { f.action='{$mod_link}'; f.op.value = 'link_remove'; }
+  //  изменение
+  if ( 5 == v ) { f.action='{$mod_link}&block=_edit'; }
+  //  удаление
+	if ( 6 == v )
+		{
+		if ( true == confirm('вы действительно хотите удалить!') )
+			{ f.action='{$mod_link}'; f.op.value = 'obj_remove'; }
+		else return false;
+		}
+  //  создать связь
+  if ( 7 == v )
+    {
+    if ( f.obj_id.value ) { f.action='{$mod_link}'; f.op.value = 'link_add'; f.submit(); }
+    else { alert('нечего свзывать'); }
+    }
+  //  добавление
+  if ( 8 == v ) { f.action='{$mod_link}&block=_edit'; f.op.value = 'obj_new'; f.submit(); }
+  //  сбросить фильтр
+  if ( 9 == v ) { f.action='{$mod_link}'; f.op.value = 'filter_reset'; }
+	}
+</script>
+<!-- Шапка -->
+<table width="100%" cellspacing="1" cellpadding="0" border="0" align="center">
+<tr>
+	<td>
+	<table width="100%" cellspacing="0" cellpadding="0" border="1">
+	<tr>
+    <td class="tdb">
+    <a href="{$mod_link}&filter_flag={$Filter->IsVisible}"><span class="db">СПИСОК</span></a>&nbsp;&nbsp;-&nbsp;
+    <span class="hd">{$ModSystem->Name}</span>
+    </td>
+    <td width="70px" class="tdbc">{$Filter->Count}</td>
+    <td width="25px" class="tdbc"><a href="#" onclick="system_window2('{$mod_link_blank}&block=_help_mod',800,650,0,0);"><img src="http://{HOST}/img/!admin/button_help2.gif" alt="справка" border="0"></a></td>
+	</tr>
+	</table>
+	</td>
+</tr>
+</table>
+<!-- Основное представление объектов -->
+<table width="100%" cellspacing="1" cellpadding="0" border="0" align="center">
+<tr>
+	<td width="100" class="hd1c" colspan="4">-</td>
+  {foreach ($Filter->Sort_Prop as $prop => $name)}
+	<td class="tdhd1" nowrap><a href="{$mod_link}&sort={$prop}">{$name}</a>&nbsp;&nbsp;</td>
+  {/foreach}
+</tr>
+{foreach ($Obj_List as $id => $row)}
+<form method="post"><input type="hidden" name="op">
+<input type="hidden" name="obj_id" value="{$id}">
+<tr onmousemove="line_move(this);" onmouseout="line_out(this);" onclick="line_clik(this);">
+  <td width="24px" align="center">{if ( $Access['RL'] )}<input type="image" src="http://{HOST}/img/!admin/button_unlink.gif" alt="удалить связь" onclick="button_form(this.form, 2);">{else}-{/if}</td>
+	<td width="24px" align="center"><a href="#" onclick="system_window2('{$mod_link_blank}&obj_id={$id}&block=_view', 850, 650, 0, 0);"><img src="http://{HOST}/img/!admin/button_view.gif" alt="просмотр" border="0"></a></td>
+  <td width="24px" align="center">{if ( $Access['E'] )}<input type="image" src="http://{HOST}/img/!admin/button_edit.gif" alt="изменить" onclick="button_form(this.form, 5);">{else}-{/if}</td>
+  <td width="24px" align="center">{if ( $Access['R'] )}<input type="image" src="http://{HOST}/img/!admin/button_trash.gif" alt="удалить" onclick="return button_form(this.form, 6);">{else}-{/if}</td>
+  {foreach ($row as $prop=>$value)}
+  <td id="{$prop}_{$id}" class="stdtxt">&nbsp;{if ( '_ID' == substr($prop, -3) )} {$Filter->Filter_Prop[$prop][$value]} {else} {$value} {/if}</td>
+  {/foreach}
+</tr>
+</form>
+{/foreach}
+</table>
+<!-- Нижняя панел - добавление, связывание ( может отсутсвовать частично или полностью в зависимости от прав ) -->
+<table width="100%" cellspacing="1" cellpadding="0" border="0" align="center">
+<!-- Постраничность -->
+{if ( $page_list )}
+<tr>
+	<td class="txt">
+	<table width="100%" height="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td width="25" align="center">
+		<a href="{$mod_link}&page={$page_list['beg']}"><img src="http://{HOST}/img/!admin/button_first.gif" alt="в начало" border="0"></a>
+		</td>
+		<td width="25" align="center">
+		<a href="{$mod_link}&page={$page_list['left']}"><img src="http://{HOST}/img/!admin/button_previous.gif" alt="на диапазон в начало" border="0"></a>
+		</td>
+		<td align="center">
+		<b>
+		&nbsp;
+		{foreach ($page_list['list'] as $val)}
+		{if ( $val == $Filter->Page )}
+		{$val}&nbsp;
+		{else}
+		<a href="{$mod_link}&page={$val}">{$val}</a>&nbsp;
+		{/if}
+		{/foreach}
+		</b>
+		</td>
+		<td width="25" align="center">
+		<a href="{$mod_link}&page={$page_list['right']}"><img src="http://{HOST}/img/!admin/button_next.gif" alt="на диапазон в конец" border="0"></a>
+		</td>
+		<td width="25" align="center">
+		<a href="{$mod_link}&page={$page_list['end']}"><img src="http://{HOST}/img/!admin/button_last.gif" alt="в конец" border="0"></a>
+		</td>
+	</tr>
+	</table>
+	</td>
+</tr>
+{/if}
+{if ( $Access['L'] )}
+<form method="post"><input type="hidden" name="op">
+<tr>
+	<td>&nbsp;<select name="obj_id" style="width: 87%"><option value="0">не выбрано</option>{foreach ($Obj_List_Link as $id => $name)}<option value="{$id}">{$name}</option>{/foreach}</select>
+	&nbsp;<input type="button" value="связать" onclick="button_form(this.form, 7);">
+	</td>
+</tr>
+</form>
+{/if}
+{if ( $Access['A'] )}
+<form method="post"><input type="hidden" name="op">
+<tr>
+	<td class="txtc"><input type="button" value="добавить" onclick="button_form(this.form, 8);"></td>
+</tr>
+</form>
+{/if}
+</table>
+
+</td>
+</tr>
+</table>

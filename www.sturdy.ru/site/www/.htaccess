@@ -1,0 +1,12 @@
+#php_flag log_errors On
+#php_value error_log '/home/domains/www.sturdy.ru/log/error_php.log'
+#php_flag display_errors Off
+#php_flag display_startup_errors Off
+#php_flag magic_quotes_gpc Off
+
+RewriteEngine on 
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [L,QSA]
+#RewriteRule ^(.*)$ index.php?sys_http_zapros=/$1 [L,QSA]

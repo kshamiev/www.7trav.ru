@@ -1,0 +1,62 @@
+<h1>{$Article->Name}</h1>
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tr>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+	<td height="1px" background="/img/border_content_g.gif"></td>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+</tr>
+<tr>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+	<td><div style="padding: 6px">
+  {$Article->Content}
+  <br>
+  
+  <script language="Javascript">
+  <!--
+  {if ( 'Client-Reminder' == $op && 'ok' == $subj )}
+  alert("На указанный Вами адрес выслано письмо\nс реквизитами доступа к сайту.");
+  location.href = '/reminder/';
+  {/if}
+  function reminder_chek(f)
+  	{
+    var reg = /^[-a-z0-9][-.a-z0-9]{1,61}@[-a-z0-9]{1,30}\.[a-z]{2,7}$/i;
+    if ( !reg.test(document.getElementById('Email').value) )
+      { alert('Поле E-mail содержит неправильный почтовый адрес'); return false; }
+    return true;
+  	}
+  //-->
+  </script>
+  <table align="center" cellpadding="0" cellspacing="0" border="0">
+  <form action="{URL}" method="post" onsubmit="return reminder_chek(this);"><input type="hidden" name="op" value="Client-Reminder">
+  <tr>
+    <td height="23px" align="right"><sup style="color: red;">*</sup>&nbsp;Email:&nbsp;</td>
+    <td>&nbsp;<input type="text" id="Email" name="Email" value="{htmlspecialchars($_POST['Email'])}" style="width: 295px;"></td> 
+  </tr>
+  <tr>
+  	<td align="right" rowspan="2" valign="top">
+    &nbsp;<sup style="color: red;">*</sup>&nbsp;Введите строчку&nbsp;<br>
+    &nbsp;с нижеследующей картинки:&nbsp;<br><br>
+    &nbsp;Если она плохо читается&nbsp;<br>
+    &nbsp;кликните по ней.&nbsp;
+    </td>
+  	<td>&nbsp;<input type="text" name="Keystring" style="width: 295px;"></td>
+  </tr>
+  <tr>
+  	<td height="70px" align="center"><img src="/kcaptcha.php" border="0" onclick="this.src='/kcaptcha.php?op='+Math.random();" style="cursor: hand;"></td>
+  </tr>
+  <tr>
+    <td height="25px">&nbsp;</td>
+  	<td>&nbsp;<input type="submit" value="выслать реквизиты" alt="выслать реквизиты" class="btn"></td>
+  </tr>
+  </form>
+  </table>
+  
+  </div></td>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+</tr>
+<tr>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+	<td height="1px" background="/img/border_content_g.gif"></td>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+</tr>
+</table>

@@ -1,0 +1,4 @@
+RewriteEngine on 
+
+RewriteRule ^([a-z|0-9|-|_|/|\.]*)$ /get_file_protected.php [L]
+RewriteRule ^(.+)$ /get_file_protected.php [L]

@@ -1,0 +1,1 @@
+UPDATE ObjProp SET Width = 100 WHERE DB IN ('I', 'F', 'D');

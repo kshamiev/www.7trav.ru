@@ -1,0 +1,53 @@
+<h1>{$Goods->Name}</h1>
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tr>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+	<td height="1px" background="/img/border_content_g.gif"></td>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+</tr>
+<tr>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+	<td>
+	<div style="padding: 6px">
+  {if ( $Goods->Imgb )}
+	<div><img border="0" align="left" style="margin-right: 10px" src="/img/{$Goods->Imgb}"></div><br>
+  {/if}
+	<div>
+  <table cellspacing="0" cellpadding="0" border="0" style="float: right;">
+	<tr>
+		<td width="40">
+            {if ( isset($Basket->Basket[$Goods->ID]) )}
+            <a href="#" onclick="return basket_add({$Goods->ID});">
+            <img id="basket_img_{$Goods->ID}" src="/img/ico-basket-full-add.jpg" border="0" alt="купить">
+            </a>
+            {else if ( 0 < $Goods->Price )}
+            <a href="#" onclick="return basket_add({$Goods->ID});">
+            <img id="basket_img_{$Goods->ID}" src="/img/ico-basket-add.jpg" border="0" alt="купить" onclick="this.src='/img/ico-basket-full-add.jpg';">
+            </a>
+            {else}
+            <img id="basket_img_{$Goods->ID}" src="/img/ico-basket-not.jpg" border="0" alt="купить">
+            {/if}
+        </td>
+		<td width="170"><span class="price">Купить {$Goods->Price} руб.</span></td>
+	</tr>
+	</table>
+  <table cellspacing="0" cellpadding="0" border="0">
+	<tr>
+    <td>
+    <!--<span class="marker">Поставщик:</span>&nbsp;{$Supplier->Name}&nbsp;&nbsp;&nbsp;&nbsp;<br><br>-->
+    <span class="marker">Производитель:</span>&nbsp;{$Vendor->Name}&nbsp;&nbsp;&nbsp;&nbsp;
+    </td>
+	</tr>
+	</table>
+  </div><br>
+  {$Goods->Content}
+	</div>
+	</td>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+</tr>
+<tr>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+	<td height="1px" background="/img/border_content_g.gif"></td>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+</tr>
+</table>

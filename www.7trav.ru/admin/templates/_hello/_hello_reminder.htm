@@ -1,0 +1,39 @@
+<p align="center">
+<a href="{$mod_link}">На главную</a>&nbsp;&nbsp;
+<a href="{$mod_link}&block=registartion">Регистрация</a>&nbsp;&nbsp;
+<a href="{$mod_link}&block=reminder">Забыл пароль</a>
+</p>
+{if ( !$flag_access )}
+<table align="center" cellspacing="1" cellpadding="0" border="0">
+<form action="{$mod_link}&block=reminder" method="post"><input type="hidden" name="op" value="reminder">
+<tr>
+    <td colspan="2" class="tdb">НАПОМИНАНИЕ ПАРОЛЯ</td>
+</tr>
+<tr>
+	<td width="200px" class="txt" align="right"><sup style="color: red;">*</sup>&nbsp;E-mail:&nbsp;</td>
+	<td>&nbsp;<input type="text" name="Email" value="{htmlspecialchars(stripslashes($_POST['Email']))}" maxlength="150" style="width: 195px;"></td>
+</tr>
+<tr>
+	<td align="right" rowspan="2" valign="top">
+  &nbsp;<sup style="color: red;">*</sup>&nbsp;Введите строчку&nbsp;<br>
+  &nbsp;с нижеследующей картинки:&nbsp;<br><br>
+  &nbsp;Если она плохо читается&nbsp;<br>
+  &nbsp;кликните по ней.&nbsp;
+  </td>
+	<td>&nbsp;<input type="text" name="Keystring" maxlength="150" style="width: 195px;"></td>
+</tr>
+<tr>
+	<td height="70px" align="center"><img src="kcaptcha.php" border="0" onclick="this.src='kcaptcha.php?op='+Math.random();" style="cursor: hand;"></td>
+</tr>
+<tr>
+    <td class="txtc" align="center" colspan="2"><input type="submit" value="напоминание" alt="выслать реквизиты на электронный адрес"></td>
+</tr>
+</form>
+</table>
+{else}
+<table align="center" cellspacing="0" cellpadding="0" border="0">
+<tr>
+	<td height="50px" align="center"><h6>Исчерпано количество попыток. Попробуйте через 10 минут</h6></td>
+</tr>
+</table>
+{/if}

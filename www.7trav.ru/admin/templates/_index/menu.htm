@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>Marko-Polo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="http://{HOST}/templates/_index/index.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" language="JavaScript" src="http://{HOST}/templates/_index/index.js"></script>
+</head>
+<body>
+  {if ( isset($navigation_array) )}
+  {$i=1}
+  {foreach ($navigation_array as $class => $navigation_list)}
+  {$i+=1}
+	<table cellspacing="0" cellpadding="0" border="0" align="center">
+	<tr bgcolor="#E8E9FA">
+		<td width="168px" height="16" class="hd" align="center"><a href="#" onclick="show(block{$i});" class="hd">- {$class} -</a></td>
+	</tr>
+	</table>
+	<div id="block{$i}">
+  {foreach ($navigation_list as $id => $name)}
+	<table cellspacing="1" cellpadding="0" border="0" align="center">
+	<tr bgcolor="#E8E9FA">
+		<td width="168px" class="tdma"><a href="window.php?mod_id={$id}&op=mod_clear" target="window">{$name}</a></td>
+	</tr>
+	</table>
+	<img src="images/1x1.gif" width="1px" height="2px" border="0"><br>
+	{/foreach}
+  </div>
+	{/foreach}
+  {/if}
+</body>
+</html>

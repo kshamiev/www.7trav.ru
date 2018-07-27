@@ -1,0 +1,20 @@
+<html>
+<head>
+<title>{$ModSystem->Name} - Административная часть</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="http://{HOST}/templates/_index/index.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" language="JavaScript" src="http://{HOST}/templates/_index/index.js"></script>
+<script type="text/javascript" language="JavaScript">
+if ( '{$subj}' && '{$op}' ) {
+  if ( window.top.document.getElementById('subj') )
+    window.top.document.getElementById('subj').innerHTML = '{$subj}&nbsp;';
+} else {
+  if ( window.top.document.getElementById('subj') )
+    window.top.document.getElementById('subj').innerHTML = '&nbsp;';
+}
+</script>
+</head>
+<body>
+{$zone_content}
+</body>
+</html>

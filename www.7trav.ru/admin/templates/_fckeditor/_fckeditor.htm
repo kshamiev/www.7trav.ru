@@ -1,0 +1,81 @@
+<html>
+<head>
+<script language="JavaScript" type="text/javascript">
+//	работа
+function button_form(f,v)
+	{
+  //  alert(window.opener.document.edit_self.obj_edit.op.value);
+	if ( v==1 ) { f.op.value='prop'; f.submit(); }
+  if ( v==3 )
+    {
+    window.opener.document.edit_self.obj_edit.op.value = 'obj_save_ok';
+    window.opener.document.edit_self.obj_edit.submit();
+    f.op.value='obj_save_ok'; f.submit();
+    }
+	if ( v==5 )
+    {
+    window.opener.document.edit_self.obj_edit.op.value = 'obj_save';
+    window.opener.document.edit_self.obj_edit.submit();
+    f.op.value='obj_save'; f.submit();
+    }
+	if ( v==6 )
+    {
+    window.opener.document.edit_self.obj_edit.op.value = 'obj_save';
+    window.opener.document.edit_self.obj_edit.submit();
+    f.op.value='obj_save_ok'; f.submit();
+    }
+	}
+//	закрытие окна
+{if ( 'obj_save_ok' == $op )} window.close(); {/if}
+</script>
+</head>
+<body>
+<table width="100%" height="100%" cellspacing="0" cellpadding="0" border="0">
+<form action="{$mod_link}&block=_fckeditor" method="post"><input type="hidden" name="op" value="obj_save">
+<input type="hidden" name="obj_id" value="{$Obj->ID}">
+<tr>
+  <td height="24px">&nbsp;&nbsp;<span class="hd">Вы находитесь:</span>&nbsp;&nbsp;<b>{$ModSystem->Name}&nbsp;&nbsp;>>&nbsp;&nbsp;{$Obj->Name}&nbsp;&nbsp;>>&nbsp;&nbsp;</b>
+  <select name="prop_edit" onchange="button_form(this.form, 1);" style="width: 200px;">
+  {foreach ($prop_list as $prop => $name)}
+  <option value="{$prop}"{if ( $prop_edit == $prop )} selected{/if}>{$name}</option>
+  {/foreach}
+  </select>
+  </td>
+</tr>
+<tr>
+  <td height="24px">&nbsp;
+  {if ( $Access['E'] )}
+  <input type="button" value=" ok " alt="сохранить все и выйти в список" style="cursor: hand;" onclick="button_form(this.form, 3);">
+  &nbsp;&nbsp;
+  <input type="button" value="сохранить" alt="сохранить" style="cursor: hand;" onclick="button_form(this.form, 5);">
+  &nbsp;&nbsp;
+  <input type="button" value="сохранить и закрыть" alt="сохранить и закрыть" style="cursor: hand;" onclick="button_form(this.form, 6);">
+  {/if}
+  </td>
+</tr>
+<tr>
+  <td>
+  <?php
+  $FCKeditor = new FCKeditor('content');
+  $FCKeditor->Value = $Obj->$prop_edit;
+  $FCKeditor->Create();
+  ?>
+  </td>
+</tr>
+<tr>
+  <td height="24px" align="center">
+  &nbsp;
+  {if ( $Access['E'] )}
+  <input type="button" value=" ok " alt="сохранить все и выйти в список" style="cursor: hand;" onclick="button_form(this.form, 3);">
+  &nbsp;&nbsp;
+  <input type="button" value="сохранить" alt="сохранить" style="cursor: hand;" onclick="button_form(this.form, 5);">
+  &nbsp;&nbsp;
+  <input type="button" value="сохранить и закрыть" alt="сохранить и закрыть" style="cursor: hand;" onclick="button_form(this.form, 6);">
+  {/if}
+  &nbsp;
+  </td>
+</tr>
+</form>
+</table>
+</body>
+</html>

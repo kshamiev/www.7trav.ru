@@ -1,0 +1,45 @@
+<NOINDEX>
+    <script language="Javascript">
+        <!--
+        function login(f)
+        {
+            if ( !f.Login.value ) { alert('Введите логин'); return false; }
+            if ( !f.Passw.value ) { alert('Введите пароль'); return false; }
+            return true;
+        }
+        //-->
+    </script>
+</NOINDEX>
+{if ( 2 == $Client->Groups_ID )}
+<table cellspacing="0" cellpadding="0" border="0">
+    <form action="{URL}" method="post" onsubmit="return login(this);"><input type="hidden" name="op" value="Client-Init_login">
+        <tr>
+            <td height="20px" colspan="2" align="center"><a href="/registration/">Регистрация</a></td>
+        </tr>
+        <tr>
+            <td height="23px" class="zag4">Логин:</td><td>&nbsp;<input type="text" name="Prop[Login]" style="width: 120px"></td>
+        </tr>
+        <tr>
+            <td height="23px" class="zag4">Пароль:</td><td>&nbsp;<input type="password" name="Prop[Passw]" style="width: 120px"></td>
+        </tr>
+        <tr align="center">
+            <td height="20px"><input type="submit" value="вход" class="btn"></td><td><a href="/reminder/">Забыл пароль</a></td>
+        </tr>
+    </form>
+</table>
+{else}
+<table cellspacing="0" cellpadding="0" border="0">
+    <form action="{URL}" method="post"><input type="hidden" name="op" value="Client-Init_Logout">
+        <tr>
+            <td align="center">{$Client->Name}</td>
+        </tr>
+        <tr>
+            <td height="20px" align="center"><a href="/profile/">Профиль</a></td>
+        </tr>
+        <tr>
+            <td height="20px" align="center"><input type="submit" value="выход" class="btn"></td>
+        </tr>
+    </form>
+</table>
+{/if}
+<br>

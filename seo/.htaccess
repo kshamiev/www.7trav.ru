@@ -1,0 +1,46 @@
+#php_flag display_errors on
+#php_value error_reporting 2047
+
+RewriteEngine On
+
+RewriteRule ^Brix$ /type.php?id=2&subid=30&s=2&coun=14&secret=1 [L,QSA]
+RewriteRule ^Di_Treviso$ /type.php?id=2&subid=31&s=2&coun=14&secret=1 [L,QSA]
+RewriteRule ^Saicis$ /type.php?id=2&subid=25&s=2&coun=14&secret=1 [L,QSA]
+
+RewriteCond %{SCRIPT_FILENAME} type\.php
+RewriteCond %{QUERY_STRING} ^id=2&subid=30&s=2&coun=14$
+RewriteRule (.*) http://www.decorb.ru/Brix? [R=301,L]
+
+RewriteCond %{SCRIPT_FILENAME} type\.php
+RewriteCond %{QUERY_STRING} ^id=2&subid=31&s=2&coun=14$
+RewriteRule (.*) http://www.decorb.ru/Di_Treviso? [R=301,L]
+
+RewriteCond %{SCRIPT_FILENAME} type\.php
+RewriteCond %{QUERY_STRING} ^id=2&subid=25&s=2&coun=14$
+RewriteRule (.*) http://www.decorb.ru/Saicis? [R=301,L]
+
+
+#RewriteRule ^p([0-9]+)$ /type.php?sviews=yes&id=$1 [L,QSA]
+
+RewriteRule ^wallpaper_([0-9]+)$ /product.php?id=1&good_id=$1 [L,QSA]
+RewriteRule ^ceramic_([0-9]+)$ /product.php?id=2&good_id=$1 [L,QSA]
+RewriteRule ^bathroom_equipment_([0-9]+)$ /product.php?id=3&good_id=$1 [L,QSA]
+RewriteRule ^lamp_([0-9]+)$ /product.php?id=4&good_id=$1 [L,QSA]
+RewriteRule ^textile_([0-9]+)$ /product.php?id=5&good_id=$1 [L,QSA]
+RewriteRule ^moulding_([0-9]+)$ /product.php?id=6&good_id=$1 [L,QSA]
+RewriteRule ^posament_([0-9]+)$ /product.php?id=11&good_id=$1 [L,QSA]
+RewriteRule ^karniz_([0-9]+)$ /product.php?id=12&good_id=$1 [L,QSA]
+RewriteRule ^articul_([0-9]+)$ /product.php?id=7&good_id=$1 [L,QSA]
+
+
+RewriteRule ^wallpaper_([a-zA-Z0-9_]+)$ /type.php?id=1&subid=$1&s=2 [L,QSA]
+RewriteRule ^ceramic_([a-zA-Z0-9_]+)$ /type.php?id=2&subid=$1&s=2 [L,QSA]
+RewriteRule ^bathroom_equipment_([a-zA-Z0-9_]+)$ /type.php?id=3&subid=$1&s=2 [L,QSA]
+RewriteRule ^lamp_([a-zA-Z0-9_]+)$ /type.php?id=4&subid=$1&s=2 [L,QSA]
+RewriteRule ^textile_([a-zA-Z0-9_]+)$ /type.php?id=5&subid=$1&s=2 [L,QSA]
+RewriteRule ^moulding_([a-zA-Z0-9_]+)$ /type.php?id=6&subid=$1&s=2 [L,QSA]
+RewriteRule ^posament_([a-zA-Z0-9_]+)$ /type.php?id=11&subid=$1&s=2 [L,QSA]
+RewriteRule ^karniz_([a-zA-Z0-9_]+)$ /type.php?id=12&subid=$1&s=2 [L,QSA]
+RewriteRule ^articul_([a-zA-Z0-9_]+)$ /type.php?id=7&subid=$1&s=2 [L,QSA]
+
+

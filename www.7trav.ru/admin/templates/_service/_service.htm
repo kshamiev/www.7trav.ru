@@ -1,0 +1,131 @@
+<table cellspacing="1" cellpadding="0" border="0" align="center">
+<tr>
+	<td width="300px" class="tdb">СИСТЕМА</td>
+	<td width="51" class="tdbc"> - </td>
+</tr>
+<tr>
+	<td class="tdtxt">Факториг системы в целом</td>
+	<td class="txtc"><a href="{$mod_link}&op=structure_all"><img src="http://{HOST}/img/!admin/button_hammer.gif" border="0"></a></td>
+</tr>
+<tr>
+	<td class="tdtxt">Импорт структуры объектов</td>
+	<td class="txtc"><a href="{$mod_link}&op=structure_import"><img src="http://{HOST}/img/!admin/button_hammer.gif" border="0"></a></td>
+</tr>
+<tr>
+	<td class="tdtxt">Экспорт структуры объектов</td>
+	<td class="txtc"><a href="{$mod_link}&op=structure_export"><img src="http://{HOST}/img/!admin/button_hammer.gif" border="0"></a></td>
+</tr>
+<tr>
+	<td class="tdtxt">Сброс кеша сайта</td>
+	<td class="txtc"><a href="{$mod_link}&op=cash_clear"><img src="http://{HOST}/img/!admin/button_hammer.gif" border="0"></a></td>
+</tr>
+<tr>
+	<td class="tdtxt">Удаление пустых неиспользуемых папок системы</td>
+	<td class="txtc"><a href="{$mod_link}&op=folder_clear"><img src="http://{HOST}/img/!admin/button_hammer.gif" border="0"></a></td>
+</tr>
+<tr>
+	<td class="tdtxt">Генерация документации разработчика на БД</td>
+	<td class="txtc"><a href="{$mod_link}&op=bd_create_document"><img src="http://{HOST}/img/!admin/button_hammer.gif" border="0"></a></td>
+</tr>
+<tr>
+	<td class="tdtxt">Удаление старых архивов</td>
+	<td class="txtc"><a href="{$mod_link}&op=arhiv_clear"><img src="http://{HOST}/img/!admin/button_hammer.gif" border="0"></a></td>
+</tr>
+<tr>
+	<td class="tdtxt">Анализ неиспользуемых объектных классов</td>
+	<td class="txtc"><a href="{$mod_link}&op=class_empty"><img src="http://{HOST}/img/!admin/button_hammer.gif" border="0"></a></td>
+</tr>
+<form action="{$mod_link}" method="post"><input type="hidden" name="op" value="nested">
+<tr>
+	<td class="tdtxt">Проверка NestedSets&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="param" maxlength="250" style="width: 150px;"></td>
+	<td class="txtc"><input type="image" src="http://{HOST}/img/!admin/button_hammer.gif" alt="Проверка NestedSets"></td>
+</tr>
+</form>
+<form action="{$mod_link}" method="post"><input type="hidden" name="op" value="user">
+<tr>
+	<td class="tdtxt">Пользовательский запрос&nbsp;&nbsp;<input type="text" name="param" maxlength="250" style="width: 150px;"></td>
+	<td class="txtc"><input type="image" src="http://{HOST}/img/!admin/button_hammer.gif" alt="пользовательский запрос"></td>
+</tr>
+</form>
+</table>
+<br>
+<!-- АНАЛИЗ БД -->
+<table cellspacing="1" cellpadding="0" border="0" align="center">
+<tr>
+	<td class="tdb" colspan="4">СВЕРКА БД</td>
+</tr>
+<form action="{$mod_link}" method="post"><input type="hidden" name="op" value="bd_validation">
+<tr>
+  <td width="100" class="tdtxt">Имя БД 1</td>
+  <td width="150">&nbsp;<select name="bd_name1" style="width: 145px;">{foreach ($db_list as $name)}<option value="{$name}">{$name}</option>{/foreach}</select></td>
+  <td width="100" class="tdtxt">Имя БД 2</td>
+  <td width="150">&nbsp;<select name="bd_name2" style="width: 145px;">{foreach ($db_list as $name)}<option value="{$name}">{$name}</option>{/foreach}</select></td>
+</tr>
+<tr>
+  <td align="center" colspan="4"><input type="submit" value="сравнить" style="cursor: hand;"></td>
+</tr>
+</form>
+{if ( 'bd_validation' == $op && ( $_POST['bd_name1'] != $_POST['bd_name2'] ) )}
+<tr>
+	<td class="tdhd1" colspan="4">{$_POST['bd_name1']}</td>
+</tr>
+{foreach ($tbl_list1 as $tbl_name => $prop_list)}
+<tr>
+  <td width="100" class="tdtxtb">Таблица:</td>
+	<td colspan="3" class="tdtxt">{$tbl_name}</td>
+</tr>
+<tr>
+  <td width="100" class="tdtxt"><i>Свойства:</i></td>
+	<td colspan="3" class="tdtxt">{implode(',&nbsp;&nbsp;', $prop_list)}</td>
+</tr>
+{/foreach}
+<tr>
+	<td class="tdhd1" colspan="4">{$_POST['bd_name2']}</td>
+</tr>
+{foreach ($tbl_list2 as $tbl_name => $prop_list)}
+<tr>
+  <td width="100" class="tdtxtb">Таблица:</td>
+	<td colspan="3" class="tdtxt">{$tbl_name}</td>
+</tr>
+<tr>
+  <td width="100" class="tdtxt"><i>Свойства:</i></td>
+	<td colspan="3" class="tdtxt">{implode(',&nbsp;&nbsp;', $prop_list)}</td>
+</tr>
+{/foreach}
+{/if}
+</table>
+<br>
+<!-- АНАЛИЗ КЛАССОВ -->
+<table cellspacing="1" cellpadding="0" border="0" align="center">
+<tr>
+	<td class="tdb" colspan="2">Анализ класса</td>
+</tr>
+<form action="{$mod_link}" method="post"><input type="hidden" name="op" value="class_analiz">
+<tr>
+  <td width="200" class="tdtxt">Имя класса</td>
+  <td width="300">&nbsp;<input type="text" name="class_name" maxlength="250" style="width: 195px;"></td>
+</tr>
+<tr>
+  <td align="center" colspan="2"><input type="submit" value="проанализировать" style="cursor: hand;"></td>
+</tr>
+{if ( 'class_analiz' == $op && $_POST['class_name'] )}
+<tr>
+	<td class="tdhd1" colspan="2">Свойства</td>
+</tr>
+{foreach ($prop_list as $prop => $value)}
+<tr>
+  <td class="tdtxt"><i>{$prop}</i></td>
+	<td class="tdtxt">{$value}</td>
+</tr>
+{/foreach}
+<tr>
+	<td class="tdhd1" colspan="2">Методы</td>
+</tr>
+{foreach ($metod_list as $metod)}
+<tr>
+  <td class="tdtxtb">{$metod}</td>
+	<td class="tdtxt">&nbsp;</td>
+</tr>
+{/foreach}
+{/if}
+</table>

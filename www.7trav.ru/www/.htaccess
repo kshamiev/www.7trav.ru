@@ -1,0 +1,60 @@
+#php_flag log_errors On
+#php_value error_log '/home/domains/www.7trav.ru/log/error_php.log'
+#php_flag display_errors Off
+#php_flag display_startup_errors Off
+#php_flag magic_quotes_gpc Off
+
+RewriteEngine on 
+
+#RewriteRule ^ware/951\.htm$ http://www.7trav.ru/tentorium/ [L]
+#RewriteRule ^production/951\.htm$ http://www.7trav.ru/tentorium/ [L]
+#RewriteRule ^tentorium[/]?$ /index.php?sys_http_zapros=/production/951.htm [L,QSA]
+
+#RewriteRule ^ware/90\.htm$ http://www.7trav.ru/akuliyhryasch/ [L]
+#RewriteRule ^production/90\.htm$ http://www.7trav.ru/akuliyhryasch/ [L]
+#RewriteRule ^akuliyhryasch[/]?$ /index.php?sys_http_zapros=/production/90.htm [L,QSA]
+
+#RewriteRule ^ware/668\.htm$ http://www.7trav.ru/applikatorlyapko/ [L]
+#RewriteRule ^production/668\.htm$ http://www.7trav.ru/applikatorlyapko/ [L]
+#RewriteRule ^applikatorlyapko[/]?$ /index.php?sys_http_zapros=/production/668.htm [L,QSA]
+
+#RewriteRule ^ware/1224\.htm$ http://www.7trav.ru/asoniya-podushka/ [L]
+#RewriteRule ^production/1224\.htm$ http://www.7trav.ru/asoniya-podushka/ [L]
+#RewriteRule ^asoniya-podushka[/]?$ /index.php?sys_http_zapros=/production/1224.htm [L,QSA]
+
+#RewriteRule ^ware/1107\.htm$ http://www.7trav.ru/dienay/ [L]
+#RewriteRule ^production/1107\.htm$ http://www.7trav.ru/dienay/ [L]
+#RewriteRule ^dienay[/]?$ /index.php?sys_http_zapros=/production/1107.htm [L,QSA]
+
+#RewriteRule ^ware/1462\.htm$ http://www.7trav.ru/nartok/ [L]
+#RewriteRule ^production/1462\.htm$ http://www.7trav.ru/nartok/ [L]
+#RewriteRule ^nartok[/]?$ /index.php?sys_http_zapros=/production/1462.htm [L,QSA]
+
+#RewriteRule ^ware/7\.htm$ http://www.7trav.ru/litovit/ [L]
+#RewriteRule ^production/7\.htm$ http://www.7trav.ru/litovit/ [L]
+#RewriteRule ^litovit[/]?$ /index.php?sys_http_zapros=/production/7.htm [L,QSA]
+
+#RewriteRule ^ware/874\.htm$ http://www.7trav.ru/mamawit/ [L]
+#RewriteRule ^production/874\.htm$ http://www.7trav.ru/mamawit/ [L]
+#RewriteRule ^mamawit[/]?$ /index.php?sys_http_zapros=/production/874.htm [L,QSA]
+
+#RewriteRule ^ware/1051\.htm$ http://www.7trav.ru/oligopeptid/ [L]
+#RewriteRule ^production/1051\.htm$ http://www.7trav.ru/oligopeptid/ [L]
+#RewriteRule ^oligopeptid[/]?$ /index.php?sys_http_zapros=/production/1051.htm [L,QSA]
+
+#RewriteRule ^ware/759\.htm$ http://www.7trav.ru/polymedel/ [L]
+#RewriteRule ^production/759\.htm$ http://www.7trav.ru/polymedel/ [L]
+#RewriteRule ^polymedel[/]?$ /index.php?sys_http_zapros=/production/759.htm [L,QSA]
+
+#RewriteRule ^ware/961\.htm$ http://www.7trav.ru/rino-faktor/ [L]
+#RewriteRule ^production/961\.htm$ http://www.7trav.ru/rino-faktor/ [L]
+#RewriteRule ^rino-faktor[/]?$ /index.php?sys_http_zapros=/production/961.htm [L,QSA]
+
+#RewriteRule ^ware/1374\.htm$ /trezvit/ [R=301,L]
+#RewriteRule ^production/1374\.htm$ /trezvit/ [R=301,L]
+#RewriteRule ^trezvit[/]?$ /index.php?sys_http_zapros=/production/1374.htm [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [L,QSA]
+#RewriteRule ^(.*)$ index.php?sys_http_zapros=/$1 [L,QSA]

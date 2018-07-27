@@ -1,0 +1,51 @@
+<!-- Просмотр -->
+<table cellspacing="1" cellpadding="0" border="0" align="center">
+<tr>
+	<td colspan="2">
+	<table width="100%" cellspacing="0" cellpadding="0" border="1">
+	<tr>
+    <td class="tdb">{$ModSystem->Name} - ПРОСМОТР</td>
+    <td width="90px" class="tdbc"><img align="absmiddle" src="http://{HOST}/img/!admin/button_id.gif" border="0"><b>&nbsp;&nbsp;=&nbsp;&nbsp;{$Obj->ID}</b></td>
+	</tr>
+	</table>
+	</td>
+</tr>
+{foreach ($Prop_List as $prop => $row)}
+<tr>
+  <td width="220px" class="tdtxt">{if ( $row['IsNull'] )} {$row['Comment']} {else} <b>{$row['Comment']}</b> {/if}</td>
+{if ( 'text' == $row['Form'] )}
+	<td width="600px" class="tdtxt">{$Obj->$prop}</td>
+{else if ( 'passw' == $row['Form'] )}
+	<td width="600px" class="tdtxt">{$Obj->$prop}</td>
+{else if ( 'datetime' == $row['Form'] )}
+	<td width="600px" class="tdtxt">{$Obj->$prop}</td>
+{else if ( '_ID' == substr($prop, -3) )}
+	<td width="600px" class="tdtxt">{if ( $Obj->$prop )} {$Filter->Filter_Prop[$prop][$Obj->$prop]} {else} не определено {/if}</td>
+{else if ( 'hidden' == $row['Form'] )}
+	<td width="600px" class="tdtxt">{$Obj->$prop}</td>
+{else if ( 'check' == $row['Form'] )}
+	<td width="600px" class="tdtxt">{if ( $Obj->$prop )}да{else}нет{/if}</td>
+{else if ( 'checkbox' == $row['Form'] )}
+	<td width="600px" class="tdtxt">
+  {foreach ($Filter->Filter_Prop[$prop] as $name)}
+	{if ( strpos($Obj->$prop, $name) !== false )} {$name}<br> {/if}
+  {/foreach}
+	</td>
+{else if ( 'enum' == $row['Type'] )}
+	<td width="600px" class="tdtxt">
+	{foreach ($Filter->Filter_Prop[$prop] as $name)}
+	{if ( $name == $Obj->$prop )} {$name} {/if}
+	{/foreach}
+	</td>
+{else if ( 'textarea' == $row['Form'] )}
+	<td width="600px"><div style="padding: 6px;">{nl2br($Obj->$prop)}</div></td>
+{else if ( 'fckeditor' == $row['Form'] )}
+	<td width="600px">{$Obj->$prop}</td>
+{else if ( 'file' == $row['Form'] || 'img' == $row['Form'] )}
+	<td width="600px" class="tdtxt">
+	{if ( $Obj->$prop )}<a href="../img/{$Obj->$prop}" title="просмотреть файл" target="_blank"><img src="http://{HOST}/img/!admin/button_view_file.gif" border="0"></a>{else}не определено{/if}
+	</td>
+{/if}
+</tr>
+{/foreach}
+</table>

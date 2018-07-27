@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>Marko-Polo</title>
+<meta name="keywords" content="Система управления сайтом">
+<meta name="description" content="Система управления сайтом">
+<meta name="author" content="Шамиев Константин Валерьевич 2009 год">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="http://{HOST}/templates/_index/index.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" language="JavaScript" src="{HOST}/templates/_index/index.js"></script>
+</head>
+<body>
+<table width="100%" height="100%" align="center" cellspacing="0" cellpadding="0" border="0">
+<tr bgcolor="#E8E9FA">
+  <td align="center">
+  <table align="center" cellspacing="1" cellpadding="0" border="0">
+  <form action="index.php" method="post" name="enter"><input type="hidden" name="op" value="login">
+  <tr>
+    <td class="tdb" colspan="2">{PROEKT_NAME}</td>
+  </tr>
+  <tr>
+    <td width="70" class="tdtxt">Логин:</td>
+    <td width="155px">&nbsp;<input type="text" name="Login" value="{$Login}" maxlength="50" style="width: 150px;"></td>
+  </tr>
+  <tr>
+    <td width="70" class="tdtxt">Пароль:</td>
+    <td width="155px">&nbsp;<input type="password" name="Passw" value="{$Passw}" maxlength="50" style="width: 150px;"></td>
+  </tr>
+  <tr>
+    <td width="70" class="tdtxt">Запомнить:</td>
+    <td width="155px">&nbsp;<input type="checkbox" name="Memory" value="1"></td>
+  </tr>
+  <tr>
+    <td class="txtc" colspan="2"><input type="submit" value="войти" alt="войти"></td>
+  </tr>
+  </form>
+  </table>
+  </td>
+</tr>
+</table>
+<script language="Javascript">
+<!--
+document.enter.Login.focus();
+if ( 0 < {$Worker->ID} ) {
+  w = 1280;
+  posx=screen.width/2-w/2;
+  //  syswin=window.open("main.php", "administrator", "left=0, top=0, width="+screen.width+"px, height="+screen.height+"px, toolbar=0, location=0, directories=0, status=0, menubar=0, scrollbars=0, resizable=0");
+  syswin=window.open("main.php", "administrator", "left="+posx+", top=0, width="+w+"px, height="+screen.height+"px, toolbar=0, location=0, directories=0, status=0, menubar=0, scrollbars=0, resizable=0");
+  syswin.focus();
+}
+//-->
+</script>
+</body>
+</html>

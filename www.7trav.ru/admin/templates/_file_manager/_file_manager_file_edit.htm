@@ -1,0 +1,30 @@
+<script language="JavaScript" type="text/javascript">
+function button_form(f,v)
+	{
+	if ( v==1 ) { f.action='{$mod_link}&block=_file_edit'; f.op.value = 'file_edit'; f.submit(); }
+	}
+</script>
+<table width="100%" height="100%" cellspacing="1" cellpadding="0" border="0">
+<tr>
+	<td class="tdb">{$file_name} - ИЗМЕНЕНИЕ</td>
+</tr>
+<tr>
+  <td class="tdtxt"><a href="{$mod_link}">{$ModSystem->Path[0]}</a></td>
+</tr>
+<form method="post" name="edit"><input type="hidden" name="op">
+<input type="hidden" name="file_name" value="{$file_name}">
+<tr>
+	<td><textarea name="file_data" style="width: 100%; height: 100%">{htmlspecialchars($file_data)}</textarea></td>
+</tr>
+{if ( $Access['E'] )}
+<tr>
+    <td class="txtc">&nbsp;<input type="button" value="изменить" alt="изменить" onclick="button_form(this.form, 1);" style="cursor: hand;">&nbsp;</td>
+</tr>
+{/if}
+</form>
+</table>
+<script language="JavaScript" type="text/javascript">
+<!--
+edit.file_data.focus();
+//-->
+</script>

@@ -1,0 +1,13 @@
+#AuthName "moda-elite"
+#AuthType Basic
+#AuthUserFile /home/domains/www.7trav.ru/.admin
+#<Limit GET>
+#	require valid-user
+#	satisfy all
+#</Limit>
+
+#php_flag log_errors On
+#php_value error_log '/home/domains/www.7trav.ru/log/error_php.log'
+#php_flag display_errors On
+#php_flag display_startup_errors On
+#php_flag magic_quotes_gpc Off

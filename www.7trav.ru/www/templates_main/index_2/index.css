@@ -1,0 +1,161 @@
+/* CSS Document */
+body			{
+				font-family: Verdana; font-size: 11px; color: #666666; background-color: #FFFFFF;
+				background: url('/img/background_body.gif');
+				margin: 0px 0px 0px 0px; overflow-x: auto; overflow-y: scroll;
+				}
+td
+	{
+	font-family: Verdana; font-size: 11px; color: #000000; background-color: #FFFFFF;
+  }
+a
+	{
+   color: #336600;
+	text-decoration: none;
+	}
+a:hover
+	{
+	text-decoration: underline;
+	}
+H1
+	{
+	font-family: Verdana;
+	text-align: center;
+	font-weight: bold;
+   font-size: 13px;
+	color: #FF6600;
+	/* text-transform: uppercase; */
+	margin: 0 0 4px 0;
+	}
+H2
+	{
+	font-family: Verdana;
+	text-align: center;
+	font-weight: bold;
+	font-size: 11px;
+	color: #CC0000;
+	text-transform: uppercase;
+	margin: 6px;
+	}
+H3
+	{
+	font-family: Verdana;
+	font-weight: bold;
+   font-size: 12px;
+	color: #663300;
+   margin: 6px 0;
+	}
+.date
+	{
+	font-family: Verdana;
+	font-size: 11px;
+	font-weight: bold;
+	font-style: italic;
+	color: #666666;
+	}
+.marker
+	{
+	font-family: Verdana;
+	font-weight: bold;
+   font-size: 11px;
+	color: #000000;
+	}
+.com
+	{
+	font-family: Verdana;
+	font-size: 11px;
+	color: #FF6600;
+	/* color: #CC0000; */
+	}
+.cop
+	{
+	font-family: Verdana;
+	font-size: 11px;
+	color: #666666;
+	}
+.price
+	{
+	font-family: Verdana;
+   font-size: 11px;
+	font-weight: bold;
+	color: #FF6600;
+	}
+	
+.brend_text
+	{
+	position: relative;
+	font-size: 12px;
+	font-weight: bold;
+	float: left;
+	color: #ffffff;
+	top: 9px;
+	left: 28px;
+	}
+.hot_link
+	{
+	float: left;
+	text-align: center;
+	position: relative;
+	top: 9px;
+	left: 565px;
+	/*
+	top: 9px;
+	left: 895px;
+	*/
+	}
+.form_search
+	{
+	float: left;
+	text-align: right;
+	position: relative;
+	top: 49px;
+	left: -363px;
+	width: 156px;
+	}
+.iten-list
+	{
+	padding-top: 0px;
+	padding-bottom: 6px;
+	padding-left: 6px;
+	padding-right: 6px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	}
+.top_menu
+	{
+   font-weight: bold;
+   font-size: 10px;
+	color: #663300;
+	text-transform: uppercase;
+	}
+.basket_summa_top
+	{
+	position: relative;
+	left: 92px;
+   font-size: 11px;
+	color: #663300;
+	font-weight: bold;
+	}
+.input_old
+	{
+	border-color: #663300;
+	border-width: 1px;
+	border-style: groove;
+  }
+.btn
+  {
+   cursor: pointer;
+	border-color: #663300;
+	border-width: 1px;
+	border-style: ridge;
+  }
+/*
+img, div, a, input, td { behavior: url('/img/iepngfix.htc); }
+
+<![if IE 6]>
+* html #page .box01 ul { padding: 20px 0px 0px 0px; margin: 0px; list-style: none;}
+* html #page .box01 ul ul li { padding: 0px 0px 1px 0px; margin: 0px; list-style: none;}
+* html #page .box01 ul ul li.hit { background: #0b75a8 url("/img/wbg.gif") left 2px no-repeat; padding-bottom:0px;}
+* html #page .box03 .tcon .news i { }
+<![endif]>
+*/

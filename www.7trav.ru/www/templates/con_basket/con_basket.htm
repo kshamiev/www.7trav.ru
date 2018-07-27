@@ -1,0 +1,105 @@
+{if ( $Article->Name )}
+<h1>{$Article->Name}</h1>
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tr>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+	<td height="1px" background="/img/border_content_g.gif"></td>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+</tr>
+<tr>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+	<td><div style="padding: 6px">
+  {$Article->Content}
+  <br>
+
+  {if ( 0 < count($Basket->Basket) )}
+  <script language="Javascript">
+  <!--
+  function basket(f, v)
+  	{
+    if ( 1 == v )
+      {
+      f.op.value = 'Basket-Reorder';
+      }
+    else if ( 2 == v )
+      {
+      f.op.value = 'Basket-Clear';
+      }
+    else if ( 3 == v )
+      {
+      f.action = '/order/';
+      }
+    else if ( 4 == v )
+      {
+      f.op.value = 'Basket-Goods_Remove';
+      }
+    else
+      {
+      return false;
+      }
+    f.submit();
+  	}
+  //-->
+  </script>
+  <table cellspacing="0" cellpadding="0" align="center" border="0">
+  <form action="/basket/" method="post" onsubmit="return false;"><input type="hidden" name="op">
+  <tr>
+    <td background="/img/spaser1.jpg" height="1" colspan="9"></td>
+  </tr>
+  {foreach ($Basket->Basket as $goods_id=>$Goods)}
+  <tr>
+    <td width="480px">
+    {if ( $Goods->Url )}
+    <a href="/{$Goods->Url}/" title="{$Goods->Name}">{$Goods->Name}</a>
+    {else}
+    <a href="/production/{$Goods->ID}.htm" title="{$Goods->Name}">{$Goods->Name}</a>
+    {/if}
+    </td>
+    <td background="/img/spaser2.jpg" width="1px"><img src="/img/1x1.gif"></td>
+    <td width="70px" align="center">{$Goods->Price}</td>
+    <td background="/img/spaser2.jpg" width="1px"><img src="/img/1x1.gif"></td>
+    <td width="50px" align="center"><input type="text" name="goods_list[{$Goods->ID}]" value="{$Goods->Cnt}" size="2"></td>
+    <td background="/img/spaser2.jpg" width="1px"><img src="/img/1x1.gif"></td>
+    <td width="70px" align="center">{$Goods->Price * $Goods->Cnt}</td>
+    <td background="/img/spaser2.jpg" width="1px"><img src="/img/1x1.gif"></td>
+    <td width="40px" align="center"><input type="checkbox" name="goods_list_rem[]" alt="удалить из корзины" value="{$Goods->ID}"></td>
+  </tr>
+  <tr>
+    <td background="/img/spaser1.jpg" height="1" colspan="9"></td>
+  </tr>
+  {/foreach}
+  <tr>
+    <td height="30px" colspan="2">Сумма заказа: {$Basket->Summa} руб.</td>
+    <td colspan="7" align="right">
+    <input type="submit" value="пересчитать" alt="пересчитать корзину" class="btn" onclick="basket(this.form, 1);">&nbsp;
+    <input type="submit" value="удалить" alt="удалить из корзины" class="btn" onclick="basket(this.form, 4);">&nbsp;
+    </td>
+  </tr>
+  <tr>
+    <td background="/img/spaser1.jpg" height="1" colspan="9"></td>
+  </tr>
+  <tr>
+    <td height="30px" colspan="9" align="right">
+    <input type="submit" value="очистить корзину" alt="очистить корзину" class="btn" onclick="basket(this.form, 2);">&nbsp;
+    <input type="submit" value="оформить заказ" alt="оформить заказ" class="btn" onclick="basket(this.form, 3);">&nbsp;
+    </td>
+  </tr>
+  <tr>
+    <td background="/img/spaser1.jpg" height="1" colspan="9"></td>
+  </tr>
+  </form>
+  </table>
+  {else}
+  <h2>ВАША КОРЗИНА ПУСТА</h2>
+  {/if}
+
+  </div></td>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+</tr>
+<tr>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+	<td height="1px" background="/img/border_content_g.gif"></td>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+</tr>
+</table>
+{/if}

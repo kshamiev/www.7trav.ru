@@ -1,0 +1,26 @@
+<h1>{$Article->Name}</h1>
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tr>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+	<td height="1px" background="/img/border_content_g.gif"></td>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+</tr>
+<tr>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+	<td><!-- 570 --><div style="padding: 6px">
+  
+  {foreach ($article_list as $row)}
+  <a href="{$row['UrlRoot']}/" title="{$row['Name']}"><h3>{$row['Name']}</h3></a>
+  {nl2br($row['Description'])}<br>
+  <a href="{$row['UrlRoot']}/" title="{$row['Name']}">Подробнее...</a><br><br>
+  {/foreach}
+  
+  </div></td>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+</tr>
+<tr>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+	<td height="1px" background="/img/border_content_g.gif"></td>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+</tr>
+</table>

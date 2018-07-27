@@ -1,0 +1,24 @@
+{if ( count($article_list) )}
+<div align="left">{foreach ($article_list as $row)}&nbsp;&nbsp;&nbsp;:&nbsp;<a href="{URL}{$row['ID']}.htm">{$row['Name']}</a><br>{/foreach}</div>
+{/if}
+<h1>{$Article->Name}</h1>
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tr>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+	<td height="1px" background="/img/border_content_g.gif"></td>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+</tr>
+<tr>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+	<td><div style="padding: 6px">{$Article->Content}</div></td>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+</tr>
+<tr>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+	<td height="1px" background="/img/border_content_g.gif"></td>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+</tr>
+</table>
+{if ( count($article_list) && $Article->Name )}
+<div align="left">{foreach ($article_list as $row)}&nbsp;&nbsp;&nbsp;:&nbsp;<a href="{URL}{$row['ID']}.htm">{$row['Name']}</a><br>{/foreach}</div>
+{/if}

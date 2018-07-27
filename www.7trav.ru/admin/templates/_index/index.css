@@ -1,0 +1,91 @@
+/* CSS Document */
+body			{
+				font-family: Tahoma; font-size: 11px; color: #000000; background-color: #E8E9FA;
+				margin: 0px 0px 0px 0px; overflow-x: auto; overflow-y: auto;
+				}
+table			{ background-color: #3A47DC; }
+.tbl		   { background-color: #993399; }
+tr          { background-color: #E8E9FA; }
+#tr_over		{ background-color: #BDC9D5; }
+#tr_click	{ background-color: #FFFFFF; }
+td				{ font-family: Tahoma; font-size: 11px; color: #000000; }
+
+.tdma			{ height: 16px; color: #3A47DC; background-color: #ffffff; text-indent: 5px; font-size: 9px; font-size: 11px; font-weight: bold; } 
+.tdmb			{ height: 16px; color: #ffffff; background-color: #A1A8F9; text-indent: 5px; font-size: 9px; font-size: 11px; font-weight: bold; }
+.tda			{ height: 20px; color: #3A47DC; background-color: #ffffff; text-indent: 5px; font-weight: bold; } 
+.tdb			{ height: 20px; color: #ffffff; background-color: #A1A8F9; text-indent: 5px; font-weight: bold; }
+.db			{ color: #ffffff; background-color: #A1A8F9; font-weight: bold; }
+.tdbc			{ height: 20px; color: #ffffff; background-color: #A1A8F9; text-align: center; font-weight: bold; }
+.tdbl			{ height: 20px; color: #ffffff; background-color: #A1A8F9; text-align: left; font-weight: bold; }
+.tdbr			{ height: 20px; color: #ffffff; background-color: #A1A8F9; text-align: right; font-weight: bold; }
+.tdg			{ height: 20px; color: #3A47DC; background-color: #ffffff; text-align: center; font-weight: bold; border-color: #3A47DC; border-style: solid; border-width: 1px; }
+
+a				{ color: #3A47DC; font-weight: bold; text-decoration: none; }
+a:hover		{ color: #ff00ff;  }
+.linkline   { color: #993399; }
+.linknotdec { text-decoration: none; color: #000000; }
+
+.hd_help    { color: #AA0000; font-weight: bold; line-height: 8px; margin: 0px 0px 0px 0px; text-align: center; }
+.hd	      { color: #AA0000; font-weight: bold; }
+.hd1			{ height: 22px; color: #AA0000; font-weight: bold; }
+.tdhd1		{ height: 22px; color: #AA0000; font-weight: bold; text-indent: 5px; }
+.hd1c			{ height: 22px; color: #AA0000; font-weight: bold; text-align: center; }
+.hd2			{ height: 22px; color: #993399; font-size: 12px; font-weight: bold; }
+.tdhd2		{ height: 22px; color: #993399; font-size: 12px; font-weight: bold; text-indent: 5px; }
+.hd2c			{ height: 22px; color: #993399; font-size: 12px; font-weight: bold; text-align: center; }
+
+.txt			{ height: 22px; }
+.tdtxt		{ height: 22px; text-indent: 5px; }
+.txtc			{ height: 22px; text-align: center; }
+.txtb			{ height: 22px; font-weight: bold; }
+.tdtxtb		{ height: 22px; font-weight: bold; text-indent: 5px; }
+.txtbc		{ height: 22px; font-weight: bold; text-align: center; }
+
+.stxt			{ height: 19px; }
+.stdtxt		{ height: 19px; text-indent: 5px; }
+.stxtc		{ height: 19px; text-align: center; }
+.stxtb		{ height: 19px; font-weight: bold; }
+.stdtxtb		{ height: 19px; font-weight: bold; text-indent: 5px; }
+.stxtbc		{ height: 19px; font-weight: bold; text-align: center; }
+
+.mar			{ color: #ff0000; font-weight: bold; }
+
+select		{ font-size: 11px; }
+input        { font-size: 11px; }
+textarea		{ font-size: 11px; overflow-x: no; overflow-y: yes; }
+.inputfile	{ font-size: 11px; border-width: 1px; border-color: #B7AB6B; }
+
+.code
+{
+  font-family: Courier, 'Courier New', sans-serif; font-size: 11px; color: #006600;
+  background-color: #FAFAFA; border: #D1D7DC; border-style: solid; border-width: 1px;
+}
+.quote
+{
+  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; color: #444444; line-height: 125%;
+  background-color: #FAFAFA; border: #D1D7DC; border-style: solid; border-width: 1px;
+}
+
+#scrollcontent {
+	overflow: auto; width: 100%; height: 100%;
+	/* вешается на div который содержит в себе сроллируемые данные */
+}
+
+#blockroot
+{
+	width: 100%;
+	border: 1px solid #E8E9FA;
+}
+#blocklevel1
+{
+	float: left;
+	width: 25%;
+	padding: 0px;
+	/* border: 1px solid #360; */
+}
+#blocklevel2
+{
+	width:100%;
+	/* text-align:center; */
+	/* border: 0px solid #360; */
+}

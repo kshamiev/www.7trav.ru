@@ -1,0 +1,155 @@
+<script language="JavaScript" type="text/javascript">
+parent.document.getElementById('obj_id').innerHTML = '{$Obj->ID}';
+parent.document.getElementById('obj_name').innerHTML = '{$Obj->Name}';
+{if ( 'obj_save_ok' == $op )}
+parent.document.location.href='{$mod_link}';
+{/if}
+</script>
+<!-- Добавление и Редактирование -->
+<table width="100%" cellspacing="1" cellpadding="0" border="0">
+<form method="post" name="obj_edit" enctype="multipart/form-data"><input type="hidden" name="op" value={$op}>
+{foreach ($Prop_List_Left as $prop => $row)}
+<tr>
+  <td width="300" class="tdtxt">
+  {if ( $row['IsNull'] )} {$row['Comment']} {else} <b>{$row['Comment']}</b> {/if} {if ( !$row['E'] )} <sup class="mar">*</sup> {/if}
+  {if ( SC::$PropAll[$ModSystem->Tbl][$prop]['Content'] )}
+  &nbsp;<a href="#" onclick="system_window2('{$mod_link_blank}&block=_help_prop&prop_id={SC::$PropAll[$ModSystem->Tbl][$prop]['ID']}',800,650,0,0);"><img src="http://{HOST}/img/!admin/button_help1.gif" alt="справка" border="0"></a>
+  {/if}
+  </td>
+{if ( 'text' == $row['Form'] )}
+	<td>&nbsp;<input type="text" name="Prop[{$prop}]" value="{htmlspecialchars($Obj->$prop)}" maxlength="250" style="width: 99%;"></td>
+{else if ( 'passw' == $row['Form'] )}
+	<td>&nbsp;<input type="password" name="Prop[{$prop}]" value="{$Obj->$prop}" maxlength="150" style="width: 99%;"></td>
+{else if ( 'datetime' == $row['Form'] )}
+	<td>
+	<table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td class="txt">&nbsp;<input type="text" id="{$prop}" name="Prop[{$prop}]" value="{$Obj->$prop}" maxlength="150" style="width: 99%;"></td>
+		<td width="25px" align="center"><img src="http://{HOST}/img/!admin/button_calendar.gif" onclick="calendar('{$prop}');" style="cursor: pointer;"></td>
+	</tr>
+	</table>
+	</td>
+{else if ( 'hidden' == $row['Form'] && '_ID' == substr($prop, -3) )}
+	<td>
+	<table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td class="tdtxt">{if ( $Obj->$prop )} {$Filter->Filter_Prop[$prop][$Obj->$prop]} {else} не определено {/if}</td>
+		{if ( $Obj->$prop )}
+		<td width="25px" align="center"><a href="#" onclick="system_window('{$mod_link_blank}&obj_id={$Obj->$prop}&tbl_name={$prop}&block=_view', 'view_{$prop}_{$Obj->$prop}', 800, 650, 0, 0);"><img src="http://{HOST}/img/!admin/button_view.gif" alt="просмотр" border="0"></a></td>
+		{/if}
+	</tr>
+	</table>
+	</td>
+{else if ( 'hidden' == $row['Form'] && ( stripos($prop, 'file') || stripos($prop, 'img') ) )}
+	<td class="tdtxt">
+	{if ( $Obj->$prop )}&nbsp;<a href="../img/{$Obj->$prop}" title="просмотреть файл" target="_blank"><img src="http://{HOST}/img/!admin/button_view_file.gif" border="0"></a>{else}не определено{/if}
+	</td>
+{else if ( 'hidden' == $row['Form'] )}
+	<td class="tdtxt">{$Obj->$prop}</td>
+{else if ( 'check' == $row['Form'] )}
+	<td>&nbsp;<input type="checkbox" name="Prop[{$prop}]" value="1"{if ( $Obj->$prop )} checked{/if}></td>
+{else if ( 'checkbox' == $row['Form'] )}
+	<td>
+  <div id="blockroot">
+  {foreach ($Filter->Filter_Prop[$prop] as $name)}
+  <div id="blocklevel1"><div id="blocklevel2"><input type="checkbox" name="Prop[{$prop}][]" value="{$name}"{if ( strpos($Obj->$prop, $name) !== false )} checked{/if}>&nbsp;{$name}</div></div>
+  {/foreach}
+  </div>
+	</td>
+{else if ( 'select' == $row['Form'] && 'I' == $row['DB'] )}
+	<td>
+	<table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td>&nbsp;<select name="Prop[{$prop}]" style="width: 99%;"><option value="">не выбрано</option>
+    {if ( 'Razdel_ID' == $prop || 'Catalog_ID' == $prop )}
+		{foreach ($Filter->Filter_Prop[$prop] as $row)}<option value="{$row['ID']}"{if ( $row['ID'] == $Obj->$prop )} selected{/if}>{$otstup[$row['Level']]}{$row['Name']}</option>{/foreach}
+    {else}
+		{foreach ($Filter->Filter_Prop[$prop] as $id=>$name)}<option value="{$id}"{if ( $id == $Obj->$prop )} selected{/if}>{$name}</option>{/foreach}
+    {/if}
+    </select>
+		</td>
+		{if ( $Obj->$prop )}
+		<td width="25px" align="center"><a href="#" onclick="system_window('{$mod_link_blank}&obj_id={$Obj->$prop}&tbl_name={$prop}&block=_view', 'view_{$prop}_{$Obj->$prop}', 800, 650, 0, 0);"><img src="http://{HOST}/img/!admin/button_view.gif" alt="просмотр" border="0"></a></td>
+		{/if}
+	</tr>
+	</table>
+	</td>
+{else if ( $row['IsNull'] && 'enum' == $row['Type'] )}
+	<td>&nbsp;<select name="Prop[{$prop}]" style="width: 99%;"><option value="">не выбрано</option>
+	{foreach ($Filter->Filter_Prop[$prop] as $name)}<option value="{$name}"{if ( $name == $Obj->$prop )} selected{/if}>{$name}</option>{/foreach}</select>
+	</td>
+{else if ( !$row['IsNull'] && 'enum' == $row['Type'] )}
+	<td>
+  <div id="blockroot">
+	{foreach ($Filter->Filter_Prop[$prop] as $name)}
+  <div id="blocklevel1"><div id="blocklevel2"><input type="radio" name="Prop[{$prop}]" value="{$name}"{if ( $name == $Obj->$prop )} checked{/if}>&nbsp;{$name}</div></div>
+	{/foreach}
+  </div>
+	</td>
+{else if ( 'file' == $row['Form'] )}
+	<td>
+  {if ( $Obj->$prop )}
+	<table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td>&nbsp;<input type="file" name="{$prop}" style="width: 99%;"></td>
+		<td width="20" align="center"><input type="checkbox" name="Prop[{$prop}][Rem]" value="1" title="удалить"></td>
+		<td width="20" align="center"><img src="http://{HOST}/img/!admin/button_trash.gif"></td>
+		<td width="25" align="center"><a href="/img/{$Obj->$prop}" title="просмотреть файл" target="_blank"><img src="http://{HOST}/img/!admin/button_view_file.gif" border="0"></a></td>
+	</tr>
+	</table>
+	{else}
+	<table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td>&nbsp;<input type="file" name="{$prop}" style="width: 99%;"></td>
+	</tr>
+	</table>
+	{/if}
+  </td>
+{else if ( 'img' == $row['Form'] )}
+	<td>
+  {if ( $Obj->$prop )}
+	<table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td colspan="7">&nbsp;<input type="file" name="{$prop}" style="width: 99%;"></td>
+	</tr>
+	<tr>
+		<td class="txt" align="right">Rotate:</td>
+		<td width="50">&nbsp;<select name="Prop[{$prop}][Edit][R]" style="width: 45px;"><option value="0">нет</option><option value="1">+90</option><option value="-1">-90</option><option value="2">180</option></select></td>
+		<td width="50" class="tdtxt">Resize:</td>
+		<td width="100">&nbsp;<input type="text" name="Prop[{$prop}][Edit][X]" size="2">&nbsp;<b>x</b>&nbsp;<input type="text" name="Prop[{$prop}][Edit][Y]" size="2">&nbsp;</td>
+		<td width="20" align="center"><input type="checkbox" name="Prop[{$prop}][Rem]" value="1" title="удалить"></td>
+		<td width="20" align="center"><img src="http://{HOST}/img/!admin/button_trash.gif"></td>
+		<td width="25" align="center"><a href="/img/{$Obj->$prop}" title="просмотреть файл" target="_blank"><img src="http://{HOST}/img/!admin/button_view_file.gif" border="0"></a></td>
+	</tr>
+	</table>
+	{else}
+	<table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td colspan="4">&nbsp;<input type="file" name="{$prop}" style="width: 99%;"></td>
+	</tr>
+	<tr>
+		<td class="txt" align="right">Rotate:</td>
+		<td width="50">&nbsp;<select name="Prop[{$prop}][Edit][R]" style="width: 45px;"><option value="0">нет</option><option value="1">+90</option><option value="-1">-90</option><option value="2">180</option></select></td>
+		<td width="50" class="tdtxt">Resize:</td>
+		<td width="100">&nbsp;<input type="text" name="Prop[{$prop}][Edit][X]" size="2">&nbsp;<b>x</b>&nbsp;<input type="text" name="Prop[{$prop}][Edit][Y]" size="2">&nbsp;</td>
+	</tr>
+	</table>
+	{/if}
+  </td>
+{/if}
+</tr>
+{/foreach}
+{foreach ($textarea_prop_left as $prop => $name)}
+<tr>
+  <td width="300" class="tdtxt">{$name}</td>
+  <td>&nbsp;<textarea rows="7" name="Prop[{$prop}]" style="width: 99%;">{$Obj->$prop}</textarea></td>
+</tr>
+{/foreach}
+{foreach ($textarea_prop_right as $prop => $name)}
+<tr>
+  <td width="300" class="tdtxt">{$name}</td>
+  <td>&nbsp;<textarea rows="7" name="Prop[{$prop}]" style="width: 99%;">{$Obj->$prop}</textarea></td>
+</tr>
+{/foreach}
+<form>
+</table>

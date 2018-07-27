@@ -1,0 +1,71 @@
+<h1>{$Article->Name}</h1>
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tr>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+	<td height="1px" background="/img/border_content_g.gif"></td>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+</tr>
+<tr>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+	<td><!-- 570 --><div style="padding: 6px">{$Article->Content}</div></td>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+</tr>
+<tr>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+	<td height="1px" background="/img/border_content_g.gif"></td>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+</tr>
+</table>
+{if ( count($goods_new_list) )}
+<h2>Новинки нашего магазина</h2>
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tr>
+	<td colspan="3" align="center">
+  <br>
+<table cellspacing="0" cellpadding="0" border="0">
+<tr valign="top">
+  {foreach ($goods_new_list as $goods)}
+	<td width="105" align="center">
+  <a href="/production/{$goods['ID']}.htm" title=""><img src="/img/{$goods['Imgs']}" border="0"></a><br>
+  <a href="/production/{$goods['ID']}.htm" title="">{$goods['Name']}</a>
+  </td>
+  {/foreach}
+</tr>
+</table>
+  <br>
+  </td>
+</tr>
+<tr>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+	<td height="1px" background="/img/border_content_g.gif"></td>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+</tr>
+</table>
+{/if}
+
+{if ( count($goods_top_list) )}
+<h2 style="clear: both;">Самые популярные товары магазина</h2>
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tr>
+	<td colspan="3" align="center">
+  <br>
+<table cellspacing="0" cellpadding="0" border="0">
+<tr valign="top">
+  {foreach ($goods_top_list as $goods)}
+	<td width="105" align="center">
+  <a href="/production/{$goods['ID']}.htm" title=""><img src="/img/{$goods['Imgs']}" border="0"></a><br>
+  <a href="/production/{$goods['ID']}.htm" title="">{$goods['Name']}</a>
+  </td>
+  {/foreach}
+</tr>
+</table>
+  <br>
+  </td>
+</tr>
+<tr>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+	<td height="1px" background="/img/border_content_g.gif"></td>
+	<td width="1px" background="/img/border_content_v.gif"></td>
+</tr>
+</table>
+{/if}

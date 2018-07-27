@@ -1,0 +1,4 @@
+User-agent:   *
+Disallow: cache/
+Disallow: session/
+Disallow: site_old/

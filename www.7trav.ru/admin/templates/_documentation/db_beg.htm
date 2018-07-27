@@ -1,0 +1,56 @@
+<html>
+<head>
+<title>Schema for database '{DB_NAME}'</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+body, td { font-family: verdana; font-size: 11px; color: #000000; background-color:#ffffff; margin: 0; }
+h1 { padding: 0; margin: 0; }
+.razdel { height: 30px; font-size: 18px; font-weight: bold; background-color: #CC9933; }
+.tbl { text-indent: 5px; font-size: 12px; font-weight: bold; background-color:#cccccc; }
+.normal { background-color: #ffffff; }
+a { color: Maroon; text-decoration: none; }
+a:hover { text-decoration: underline; }
+br.page { page-break-after: always; }
+.prop_id { font-size: 12px; font-weight: bold; background-color: #ffffff; text-decoration: underline; text-transform: uppercase;}
+.prop_link { font-size: 12px; font-weight: bold; color: #CC3300; background-color: #ffffff; }
+.prop_flag { font-size: 12px; font-weight: bold; color: 009900; background-color: #ffffff; }
+.prop_is { font-size: 12px; font-weight: bold; color: 000099; background-color: #ffffff; }
+.prop { font-size: 12px; font-weight: bold; background-color: #ffffff; }
+//-->
+</style>
+</head>
+<body>
+<table width="100%" border="0" cellspacing="0" cellpadding="10">
+<tr>
+  <td>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+  <td align="center"><a name="main"></a><h1>{DB_NAME}</H1></td>
+</tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr valign="top">
+  <td>
+  {foreach ($navigation_list as $razdel => $table_list)}
+  &nbsp;<a href="#razdel_{System_String::Translit_Url($razdel)}">{$razdel}</a><br>
+  {foreach ($table_list as $table => $name)}
+  &nbsp;&nbsp;&nbsp;&nbsp;{$table} - <a href="#tbl_{$table}">{$name}</a><br>
+  {/foreach}
+  {/foreach}
+  </td>
+  <td>
+  <br>- ЛЕГЕНДА -<br><br>
+  <span class="prop_id">ID</span><br>
+  &nbsp;&nbsp;&nbsp;Идентификаторы объектов<br>
+  <span class="prop_link">ModSite_ID, Groups_ID</span><br>
+  &nbsp;&nbsp;&nbsp;Поле реализующее свазь с другим объектом<br>
+  <span class="prop_flag">Status, Type</span><br>
+  &nbsp;&nbsp;&nbsp;Поле объеденяющее объекты в группы<br>
+  <span class="prop_is">IsVisible, IsExist</span><br>
+  &nbsp;&nbsp;&nbsp;Поле реализует различные флаги, технический статус<br>
+  <span class="prop">Name, Description</span><br>
+  &nbsp;&nbsp;&nbsp;Обычное поле, содержащее основную информацию о объекте<br>
+  </td>
+</tr>
+</table>

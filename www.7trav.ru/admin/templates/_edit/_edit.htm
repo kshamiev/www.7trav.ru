@@ -1,0 +1,132 @@
+<table width="100%" height="100%" cellspacing="0" cellpadding="0" border="0">
+<tr valign="top">
+<td height="44">
+
+<script language="JavaScript" type="text/javascript">
+function button_form(v)
+{
+  f = edit_self.obj_edit;
+  //  добавить
+  if ( 1 == v ) { f.action='{$mod_link_blank}&block=_edit_self'; f.op.value = 'obj_add'; f.submit(); }
+  //  сохранить и выйти в список
+  if ( 2 == v ) { f.action='{$mod_link_blank}&block=_edit_self'; f.op.value = 'obj_save_ok'; f.submit(); }
+  //  сохранить
+  if ( 3 == v ) { f.action='{$mod_link_blank}&block=_edit_self'; f.op.value = 'obj_save'; f.submit(); }
+  //  отмена
+  if ( 4 == v )
+  {
+    if ( 'obj_new' == f.op.value || 'obj_add' == f.op.value )
+      { location.href='{$mod_link}&op=obj_remove'; }
+    else
+      { location.href='{$mod_link}'; }
+  }
+  //  свернуть
+  if ( 12 == v )
+  {
+    show(document.getElementById('edit_block'));
+    if ( 'свернуть' == document.getElementById('edit_scroll').value ) {
+      document.getElementById('edit_scroll').value = 'развернуть';
+    } else {
+      document.getElementById('edit_scroll').value = 'свернуть';
+    }
+  }
+}
+</script>
+<!-- Добавление и Редактирование -->
+<table width="100%" cellspacing="1" cellpadding="0" border="0" align="center">
+<tr>
+	<td class="txt">
+	<table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+    <td class="tdb">
+    <span onclick="show(document.getElementById('edit_block'));" style="cursor: pointer;">ДОБАВЛЕНИЕ / РЕДАКТИРОВАНИЕ</span>&nbsp;&nbsp;-&nbsp;
+    <a href="{$mod_link}"><span class="hd">{$ModSystem->Name}</span></a>&nbsp;&nbsp;-&nbsp;&nbsp;<span id="obj_name" class="hd">{$Obj->Name}</span>
+    </td>
+    <td width="90px" class="tdbc"><img align="absmiddle" src="http://{HOST}/img/!admin/button_id.gif" border="0"><b>&nbsp;&nbsp;=&nbsp;&nbsp;<span id="obj_id">{$Obj->ID}</span></b></td>
+	</tr>
+	</table>
+	</td>
+</tr>
+{if ( 0 < count($Path) )}
+<tr>
+	<td class="tdtxt">{$row=array_shift($Path)}
+  &nbsp;/&nbsp;<a href="{$mod_link}&mod_parent_id={$row['ID']}&obj_id={$row['Obj_ID']}&block=_edit">Главная(ый)</a>
+  &nbsp;/&nbsp;<a href="{$mod_link}&mod_parent_id={$row['ID']}&obj_id={$row['Obj_ID']}">корень</a>
+	{foreach ($Path as $row)}
+	&nbsp;/&nbsp;<a href="{$mod_link}&mod_parent_id={$row['ID']}&obj_id={$row['Obj_ID']}">{$row['Obj_Name']}</a>
+	{/foreach}
+	</td>
+</tr>
+{else}
+<tr>
+	<td class="tdtxt">
+  <a href="{$mod_link}">к списку</a>
+	</td>
+</tr>
+{/if}
+<tr>
+	<td>
+  <table width="100%" cellspacing="0" cellpadding="0" border="0">
+  <tr>
+    {if ( $Access['E'] )}
+    <td width="30" class="txtc"><input type="button" value=" ok " alt="сохранить и выйти" onclick="button_form(2);" style="cursor: pointer;"></td>
+    <td width="85" class="txtc"><input type="button" value="сохранить" alt="сохранить" onclick="button_form(3);" style="cursor: pointer;"></td>
+    {/if}
+    {if ( $Access['A'] )}
+    <td width="80" class="txtc"><input type="button" value="добавить" alt="добавить" onclick="button_form(1);" style="cursor: pointer;"></td>
+    {/if}
+    <td width="65" class="txtc"><input type="button" value="отмена" alt="отмена" onclick="button_form(4);" style="cursor: pointer;"></td>
+    <!--<td width="75" class="txtc"><input id="edit_scroll" type="button" value="свернуть" alt="свернуть редактирование" onclick="button_form(12);" style="cursor: pointer;"></td>-->
+    <td class="tdtxt">
+    {foreach ($fckeditor_prop as $prop => $name)}
+    <img src="http://{HOST}/img/!admin/button_edit_style.gif" border="0" align="absmiddle">&nbsp;
+    <a href="#" onclick="system_window('{$mod_link_blank}&obj_id={$Obj->ID}&prop_edit={$prop}&block=_fckeditor', 'fck_{$ModSystem->ID}_obj_{$Obj->ID}', 850, 650, 0, 0);">{$name}</a>&nbsp;
+    {/foreach}
+    {if ( 0 < count($ModSystem->Parent) )}
+    {foreach ($Link_List as $link)}
+    <img src="http://{HOST}/img/!admin/button_objects.gif" border="0" align="absmiddle">&nbsp;
+    <a href="#" onclick="system_window('{$mod_link}&mod_child_id={$link['ID']}', 'mod_{$link['ID']}_obj_{$Obj->ID}', 850, 650, 1, 0);">{$link['Name']}</a>&nbsp;
+    {/foreach}
+    {else}
+    {foreach ($Link_List as $link)}
+    <img src="http://{HOST}/img/!admin/button_objects.gif" border="0" align="absmiddle">&nbsp;
+    <a href="{$mod_link_blank}&mod_child_id={$link['ID']}" target="edit_link">{$link['Name']}</a>&nbsp;
+    {/foreach}
+    {/if}
+    &nbsp;
+    </td>
+  </tr>
+  </table>
+  </td>
+</tr>
+</table>
+
+</td>
+</tr>
+<tr id="edit_block">
+{if ( 0 < count($Link_List) && 0 == count($ModSystem->Parent) )}
+<td height="{$ModSystem->EditHeight}">
+{else}
+<td>
+{/if}
+<table width="100%" height="100%" cellspacing="0" cellpadding="0" border="0">
+<tr>
+	<td><iframe name="edit_self" src="{$mod_link_blank}&block=_edit_self&op={$op}" width="100%" height="100%" marginwidth="0" marginheight="0" scrolling="auto" frameborder="0"></iframe></td>
+</tr>
+</table>
+
+{if ( 0 < count($Link_List) && 0 == count($ModSystem->Parent) )}
+</td>
+</tr>
+<tr>
+<td>
+<table width="100%" height="100%" cellspacing="0" cellpadding="0" border="0">
+<tr>
+	<td><iframe name="edit_link" src="{$mod_link_blank}&mod_child_id={$Link_List[0]['ID']}" width="100%" height="100%" marginwidth="0" marginheight="0" scrolling="auto" frameborder="0"></iframe></td>
+</tr>
+</table>
+{/if}
+
+</td>
+</tr>
+</table>

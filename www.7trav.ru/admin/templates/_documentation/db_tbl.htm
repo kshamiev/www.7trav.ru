@@ -1,0 +1,48 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="2">
+<tr>
+<td align="right"><a name="tbl_{$table_name}">&nbsp;</a><a href="#tbl_{$table_name_old}">на таблицу выше</a>&nbsp;&bull;&nbsp;<a href="#main">в начало</a></td>
+</tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="3">
+<tr>
+	<td class="tbl">{$table['Tbl']} - {$table['Name']}</td>
+</tr>
+</table>
+<table width="100%" cellspacing="0" cellpadding="4" border="1">
+<tr>
+	<td class="normal" colspan="3">{$table['Content']}&nbsp;</td>
+</tr>
+{foreach ($prop_list as $prop)}
+{if ( 'ID' == $prop['Prop'] )}
+<tr>
+	<td width="20%" class="prop_id">{$prop['Prop']}</td>
+  <td width="20%" class="normal">{$prop['Name']}</td>
+	<td width="60%" class="normal"><i>{$prop['TypeFull']}</i><br>{$prop['Content']}</td>
+</tr>
+{else if ( '_ID' == substr($prop['Prop'], -3) )}
+<tr>
+	<td width="20%" class="prop_link">{$prop['Prop']}</td>
+  <td width="20%" class="normal">{$prop['Name']}</td>
+	<td width="60%" class="normal"><i>{$prop['TypeFull']}</i><br>{$prop['Content']}</td>
+</tr>
+{else if ( 'select' == $prop['Form'] || 'radio' == $prop['Form'] )}
+<tr>
+	<td width="20%" class="prop_flag">{$prop['Prop']}</td>
+  <td width="20%" class="normal">{$prop['Name']}</td>
+	<td width="60%" class="normal"><i>{$prop['TypeFull']}</i><br>{$prop['Content']}</td>
+</tr>
+{else if ( 'check' == $prop['Form'] )}
+<tr>
+	<td width="20%" class="prop_is">{$prop['Prop']}</td>
+  <td width="20%" class="normal">{$prop['Name']}</td>
+	<td width="60%" class="normal"><i>{$prop['TypeFull']}</i><br>{$prop['Content']}</td>
+</tr>
+{else}
+<tr>
+	<td width="20%" class="prop">{$prop['Prop']}</td>
+  <td width="20%" class="normal">{$prop['Name']}</td>
+	<td width="60%" class="normal"><i>{$prop['TypeFull']}</i><br>{$prop['Content']}</td>
+</tr>
+{/if}
+{/foreach}
+</table>
